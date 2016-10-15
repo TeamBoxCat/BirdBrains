@@ -8,7 +8,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TweetFetcher extends PApplet{
+public class TweetFetcher{
 	private ArrayList<Query> queryList = new ArrayList<Query>();
 	private Twitter twitter;
 	private ConfigurationBuilder configBuilder;
