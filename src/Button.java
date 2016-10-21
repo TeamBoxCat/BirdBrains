@@ -32,6 +32,7 @@ public class Button {
         textSize = h * .5f;
         setPadding(w * 0.10f, h * 0.10f);
         active = true;
+        text="";
     }
 
     Button(float x, float y, float w, float h, String text, int id, boolean active) {
