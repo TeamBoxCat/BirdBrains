@@ -22,6 +22,17 @@ public class Button {
         setPadding(w * 0.10f, h * 0.10f);
         active = true;
     }
+    
+    Button(float x, float y, float w, float h, int id) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.id = id;
+        textSize = h * .5f;
+        setPadding(w * 0.10f, h * 0.10f);
+        active = true;
+    }
 
     Button(float x, float y, float w, float h, String text, int id, boolean active) {
         this(x, y, w, h, text, id);

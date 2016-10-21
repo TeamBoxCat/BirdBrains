@@ -43,11 +43,14 @@ import java.io.IOException;
 public class BirdBrains extends PApplet {
 
     public static BirdBrains GAME;
+    public static TweetFetcher TWITS;
     LinkedList<Level> levels = new LinkedList<Level>();
     int currentLevel = 0;
     Player trump, hillary, p1, p2;
     PImage tempBack;
     boolean p1first = false;
+    private static final int HILARY = 0;
+    private static final int TRUMP = 1;
 
     Minim minim;
     LinkedList<String> sounds;
@@ -55,8 +58,12 @@ public class BirdBrains extends PApplet {
 
     public void setup() {
         GAME = this;
-        //try{System.setOut(new PrintStream(new FileOutputStream("./log.txt")));}
-        //catch(FileNotFoundException e){}
+        TWITS = new TweetFetcher();
+        TWITS.addQuery("#dumptrump -http -https -RT", 200);
+        TWITS.addQuery("#ImNotWithHer -http -https -RT", 200);
+        
+        //implement loading screen
+        
         background(0);
 
         minim = new Minim(this);
@@ -139,16 +146,16 @@ public class BirdBrains extends PApplet {
         ButtonAction trumpActive = new ButtonAction() {
             @Override
             public void action() {
-                trump.ai = false;
-                p1 = trump;
+                BirdBrains.GAME.trump.ai = false;
+                BirdBrains.GAME.p1 = BirdBrains.GAME.trump;
                 setLevel(1);
             }
         };
         ButtonAction hillaryActive = new ButtonAction() {
             @Override
             public void action() {
-                hillary.ai = false;
-                p1 = hillary;
+                BirdBrains.GAME.hillary.ai = false;
+                BirdBrains.GAME.p1 = BirdBrains.GAME.hillary;
                 setLevel(1);
             }
         };
