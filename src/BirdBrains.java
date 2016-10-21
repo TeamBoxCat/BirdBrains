@@ -43,11 +43,14 @@ import java.io.IOException;
 public class BirdBrains extends PApplet {
 
     public static BirdBrains GAME;
+    public static TweetFetcher TWITS;
     LinkedList<Level> levels = new LinkedList<Level>();
     int currentLevel = 0;
     Player trump, hillary, p1, p2;
     PImage tempBack;
     boolean p1first = false;
+    private static final int HILARY = 0;
+    private static final int TRUMP = 1;
 
     Minim minim;
     LinkedList<String> sounds;
@@ -55,8 +58,18 @@ public class BirdBrains extends PApplet {
 
     public void setup() {
         GAME = this;
-        //try{System.setOut(new PrintStream(new FileOutputStream("./log.txt")));}
-        //catch(FileNotFoundException e){}
+        TWITS = new TweetFetcher();
+        TWITS.addQuery("#dumptrump -http -https -RT", 200);
+        TWITS.addQuery("#ImNotWithHer -http -https -RT", 200);
+        try{
+            TWITS.loadTweets();
+        }
+        catch(Exception e){
+        //NO connection page
+        }
+        
+        //implement loading screen
+        
         background(0);
 
         minim = new Minim(this);
@@ -139,16 +152,16 @@ public class BirdBrains extends PApplet {
         ButtonAction trumpActive = new ButtonAction() {
             @Override
             public void action() {
-                trump.ai = false;
-                p1 = trump;
+                BirdBrains.GAME.trump.ai = false;
+                BirdBrains.GAME.p1 = BirdBrains.GAME.trump;
                 setLevel(1);
             }
         };
         ButtonAction hillaryActive = new ButtonAction() {
             @Override
             public void action() {
-                hillary.ai = false;
-                p1 = hillary;
+                BirdBrains.GAME.hillary.ai = false;
+                BirdBrains.GAME.p1 = BirdBrains.GAME.hillary;
                 setLevel(1);
             }
         };
@@ -216,12 +229,12 @@ public class BirdBrains extends PApplet {
         }
         );
         levels.get(1).addButton(mainButton);
-        levels.get(1).addButton(new Button(width * 0.1f, height * 0.1f, 200, 50, "Trump Option 1", 1));
-        levels.get(1).addButton(new Button(width * 0.1f, height * 0.2f, 200, 50, "Trump Option 2", 2));
-        levels.get(1).addButton(new Button(width * 0.1f, height * 0.3f, 200, 50, "Trump Option 3", 3));
-        levels.get(1).addButton(new Button(width * 0.9f - 200, height * 0.1f, 200, 50, "Hillary Option 1", 4));
-        levels.get(1).addButton(new Button(width * 0.9f - 200, height * 0.2f, 200, 50, "Hillary Option 2", 5));
-        levels.get(1).addButton(new Button(width * 0.9f - 200, height * 0.3f, 200, 50, "Hillary Option 3", 6));
+        levels.get(1).addButton(new TweetButton(width * 0.1f, height * 0.1f, 200, 50, 1, TRUMP));
+        levels.get(1).addButton(new TweetButton(width * 0.1f, height * 0.2f, 200, 50, 2, TRUMP));
+        levels.get(1).addButton(new TweetButton(width * 0.1f, height * 0.3f, 200, 50, 3, TRUMP));
+        levels.get(1).addButton(new TweetButton(width * 0.9f - 200, height * 0.1f, 200, 50, 4, HILARY));
+        levels.get(1).addButton(new TweetButton(width * 0.9f - 200, height * 0.2f, 200, 50, 5, HILARY));
+        levels.get(1).addButton(new TweetButton(width * 0.9f - 200, height * 0.3f, 200, 50, 6, HILARY));
 
         levels.get(1).getButton(1).addAction(new ButtonAction() {
             @Override
