@@ -5,7 +5,6 @@ public class Player {
     float health;
     boolean ai;
     float x, y;
-    HealthBar healthBar;
     Sprite sprite;
     int size = 200;
     boolean idle = true;
@@ -19,7 +18,6 @@ public class Player {
         this.ai = ai;
         this.x = x;
         this.y = y;
-        healthBar = new HealthBar(x, y, 200, 30);
     }
 
     public void takeDmg(int dmg) {
@@ -39,7 +37,7 @@ public class Player {
         }
 
         BirdBrains.GAME.image(sprite.getAnim(anim, (int) animCount), x, y, size, size);
-        healthBar.draw(health);
+        drawHealthBar();
 
         if (!(anim == 1 && (int) animCount == sprite.animations.get(1).length - 1)) {
             if ((int) animCount < sprite.animations.get(anim).length - 1) {
@@ -52,6 +50,19 @@ public class Player {
 
     public void addSprite(Sprite s) {
         sprite = s;
-        healthBar.y += size + 10;
+    }
+    
+    private void drawHealthBar(){
+        float w = size*1.3f;
+        float h = size*.15f;
+        float x = this.x;
+        float y = this.y + size*1.2f;
+        
+        BirdBrains.GAME.fill(0);
+        BirdBrains.GAME.rect(x, y, w, h);
+        BirdBrains.GAME.fill(BirdBrains.GAME.lerpColor(0xffFF0000, 0xff00FF00, health));
+        if (health >= 0) {
+            BirdBrains.GAME.rect(x + 4, y + 4, (w - 8) * health, h - 8);
+        }
     }
 }
