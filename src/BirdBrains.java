@@ -116,7 +116,7 @@ public class BirdBrains extends PApplet {
         else{
             preloader.draw();
         }
-        
+        //testing something
         sc.update();
     }
 
