@@ -49,8 +49,14 @@ public class BirdBrains extends PApplet {
     Player trump, hillary, p1, p2;
     PImage tempBack;
     boolean p1first = false;
+    
+    //Constants
     private static final int HILARY = 0;
     private static final int TRUMP = 1;
+    private static final int MENU = 0;
+    private static final int GAMESCREEN = 1;
+    private static final int CREDITS = 2;
+    private static final int LOADINGSCREN = 3;
 
     Minim minim;
     LinkedList<String> sounds;
@@ -128,14 +134,14 @@ public class BirdBrains extends PApplet {
 
     public void initMainMenu() { //<>//
         if (levels.size() < 1) {
-            levels.add(new Level(0, "Main Menu"));
-            levels.add(new Level(1, "Game Screen"));
-            levels.add(new Level(2, "Credits Screen"));
+            levels.add(new Level(MENU, "Main Menu"));
+            levels.add(new Level(GAMESCREEN, "Game Screen"));
+            levels.add(new Level(CREDITS, "Credits Screen"));
         } else {
-            levels.add(0, new Level(0, "Main Menu"));
+            levels.add(MENU, new Level(MENU, "Main Menu"));
         }
-        levels.get(0).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
-        levels.get(0).addText(new TextElement(width * .5f, height * .25f, 30, "Something Something Politics"));
+        levels.get(MENU).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
+        levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "Something Something Politics"));
 
         initChars();
 
@@ -147,14 +153,14 @@ public class BirdBrains extends PApplet {
             }
         }
         );
-        levels.get(0).addButton(exitButton);
+        levels.get(MENU).addButton(exitButton);
 
         ButtonAction trumpActive = new ButtonAction() {
             @Override
             public void action() {
                 BirdBrains.GAME.trump.ai = false;
                 BirdBrains.GAME.p1 = BirdBrains.GAME.trump;
-                setLevel(1);
+                setLevel(GAMESCREEN);
             }
         };
         ButtonAction hillaryActive = new ButtonAction() {
@@ -162,21 +168,21 @@ public class BirdBrains extends PApplet {
             public void action() {
                 BirdBrains.GAME.hillary.ai = false;
                 BirdBrains.GAME.p1 = BirdBrains.GAME.hillary;
-                setLevel(1);
+                setLevel(GAMESCREEN);
             }
         };
         Button trumpBtn = new Button(width * .35f - 100, height * .4f, 200, 50, "Trump", 80, false);
         trumpBtn.addAction(trumpActive);
-        levels.get(0).addButton(trumpBtn);
+        levels.get(MENU).addButton(trumpBtn);
         Button hillaryBtn = new Button(width * .65f - 100, height * .4f, 200, 50, "Hillary", 81, false);
         hillaryBtn.addAction(hillaryActive);
-        levels.get(0).addButton(hillaryBtn);
+        levels.get(MENU).addButton(hillaryBtn);
         Button trump2Btn = new Button(width * .35f - 100, height * .5f, 200, 50, "Trump", 90, false);
         trump2Btn.addAction(trumpActive);
-        levels.get(0).addButton(trump2Btn);
+        levels.get(MENU).addButton(trump2Btn);
         Button hillary2Btn = new Button(width * .65f - 100, height * .5f, 200, 50, "Hillary", 91, false);
         hillary2Btn.addAction(hillaryActive);
-        levels.get(0).addButton(hillary2Btn);
+        levels.get(MENU).addButton(hillary2Btn);
 
         Button oneP = new Button(width * .5f - 100, height * .4f, 200, 50, "1 Player", 1);
         oneP.addAction(new ButtonAction() {
@@ -186,7 +192,7 @@ public class BirdBrains extends PApplet {
             }
         }
         );
-        levels.get(0).addButton(oneP);
+        levels.get(MENU).addButton(oneP);
 
         Button twoP = new Button(width * .5f - 100, height * .5f, 200, 50, "2 Players", 2);
         twoP.addAction(new ButtonAction() {
@@ -196,120 +202,131 @@ public class BirdBrains extends PApplet {
             }
         }
         );
-        levels.get(0).addButton(twoP);
+        levels.get(MENU).addButton(twoP);
 
         Button credits = new Button(width * .5f - 50, height * .6f, 100, 50, "Credits", 3);
         credits.addAction(new ButtonAction() {
             @Override
             public void action() {
-                setLevel(2);
+                setLevel(CREDITS);
             }
         }
         );
-        levels.get(0).addButton(credits);
+        levels.get(MENU).addButton(credits);
 
-        levels.get(0).setBackground(tempBack);
+        levels.get(MENU).setBackground(tempBack);
     }
 
     public void initGameScreen() {
         if (levels.size() < 2) {
-            levels.add(new Level(1, "Game Screen"));
+            levels.add(new Level(GAMESCREEN, "Game Screen"));
         } else {
-            levels.add(1, new Level(1, "Game Screen"));
+            levels.add(GAMESCREEN, new Level(GAMESCREEN, "Game Screen"));
         }
 
-        levels.get(1).setBackground(tempBack);
+        levels.get(GAMESCREEN).setBackground(tempBack);
 
         Button mainButton = new Button(0, 0, 100, 50, "Main", 0);
         mainButton.addAction(new ButtonAction() {
             @Override
             public void action() {
-                setLevel(0);
+                setLevel(MENU);
             }
         }
         );
-        levels.get(1).addButton(mainButton);
-        levels.get(1).addButton(new TweetButton(width * 0.1f, height * 0.1f, 200, 50, 1, TRUMP));
-        levels.get(1).addButton(new TweetButton(width * 0.1f, height * 0.2f, 200, 50, 2, TRUMP));
-        levels.get(1).addButton(new TweetButton(width * 0.1f, height * 0.3f, 200, 50, 3, TRUMP));
-        levels.get(1).addButton(new TweetButton(width * 0.9f - 200, height * 0.1f, 200, 50, 4, HILARY));
-        levels.get(1).addButton(new TweetButton(width * 0.9f - 200, height * 0.2f, 200, 50, 5, HILARY));
-        levels.get(1).addButton(new TweetButton(width * 0.9f - 200, height * 0.3f, 200, 50, 6, HILARY));
+        levels.get(GAMESCREEN).addButton(mainButton);
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.1f, 200, 50, 1, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.2f, 200, 50, 2, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.3f, 200, 50, 3, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.1f, 200, 50, 4, HILARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.2f, 200, 50, 5, HILARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.3f, 200, 50, 6, HILARY));
 
-        levels.get(1).getButton(1).addAction(new ButtonAction() {
+        levels.get(GAMESCREEN).getButton(1).addAction(new ButtonAction() {
             @Override
             public void action() {
                 hillary.takeDmg(10);
             }
         }
         );
-        levels.get(1).getButton(2).addAction(new ButtonAction() {
+        levels.get(GAMESCREEN).getButton(2).addAction(new ButtonAction() {
             @Override
             public void action() {
                 hillary.takeDmg(5);
             }
         }
         );
-        levels.get(1).getButton(3).addAction(new ButtonAction() {
+        levels.get(GAMESCREEN).getButton(3).addAction(new ButtonAction() {
             @Override
             public void action() {
                 hillary.takeDmg(1);
             }
         }
         );
-        levels.get(1).getButton(4).addAction(new ButtonAction() {
+        levels.get(GAMESCREEN).getButton(4).addAction(new ButtonAction() {
             @Override
             public void action() {
                 trump.takeDmg(5);
             }
         }
         );
-        levels.get(1).getButton(5).addAction(new ButtonAction() {
+        levels.get(GAMESCREEN).getButton(5).addAction(new ButtonAction() {
             @Override
             public void action() {
                 trump.takeDmg(1);
             }
         }
         );
-        levels.get(1).getButton(6).addAction(new ButtonAction() {
+        levels.get(GAMESCREEN).getButton(6).addAction(new ButtonAction() {
             @Override
             public void action() {
                 trump.takeDmg(10);
             }
         }
         );
+        
+        for(int i = 1;i<= 6; i++){
+            TweetButton b = (TweetButton)levels.get(GAMESCREEN).getButton(i);
+            b.addAction(new ButtonAction() {
+                @Override
+                public void action() {
+                    b.refreshTweet();
+                }
+            }
+            );
+        }
     }
 
     public void initCredits() {
         if (levels.size() < 3) {
-            levels.add(new Level(2, "Credits Screen"));
+            levels.add(new Level(CREDITS, "Credits Screen"));
         } else {
-            levels.add(2, new Level(2, "Credits Screen"));
+            levels.add(CREDITS, new Level(CREDITS, "Credits Screen"));
         }
 
         Button mainButton = new Button(0, 0, 100, 50, "Main", 0);
         mainButton.addAction(new ButtonAction() {
             @Override
             public void action() {
-                setLevel(0);
+                setLevel(MENU);
             }
         }
         );
 
-        levels.get(2).setBackground(tempBack);
-        levels.get(2).addText(new TextElement(width * .5f, height * .15f, 50, "Credits"));
-        levels.get(2).addText(new TextElement(width * .2f, height * .25f, 30, "Almost Everything - Mohamad Kalache", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .30f, 30, "Sprites - Universal LPC Sprite Sheet Character Generator", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .35f, 20, "-https://goo.gl/qTVZYn", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .40f, 30, "Sound Library - Minim", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .45f, 20, "-http://code.compartmental.net/tools/minim", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .50f, 30, "Theme - Star Spangled Banner", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .55f, 20, "-US Army Band", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .60f, 30, "Trump Theme - The O'Jays, For the Love of Money", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .65f, 20, "-Sony Music", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .70f, 30, "Hillary Theme - Beyonc\u00e9, Run the World(Girls)", LEFT));
-        levels.get(2).addText(new TextElement(width * .2f, height * .75f, 20, "-Sony Music", LEFT));
-        levels.get(2).addButton(mainButton);
+        levels.get(CREDITS).setBackground(tempBack);
+        levels.get(CREDITS).addText(new TextElement(width * .5f, height * .15f, 50, "Credits"));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .25f, 30, "Almost Everything - Mohamad Kalache", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .30f, 30, "Sprites - Universal LPC Sprite Sheet Character Generator", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .35f, 20, "-https://goo.gl/qTVZYn", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .40f, 30, "Sound Library - Minim", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .45f, 20, "-http://code.compartmental.net/tools/minim", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .50f, 30, "Theme - Star Spangled Banner", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .55f, 20, "-US Army Band", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .60f, 30, "Trump Theme - The O'Jays, For the Love of Money", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .65f, 20, "-Sony Music", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .70f, 30, "Hillary Theme - Beyonc\u00e9, Run the World(Girls)", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .75f, 20, "-Sony Music", LEFT));
+        levels.get(CREDITS).addButton(mainButton);
     }
 
     public PImage genBack() {
@@ -368,9 +385,9 @@ public class BirdBrains extends PApplet {
 
     public void setLevel(int l) {
         currentLevel = l;
-        if (l == 0) {
+        if (l == MENU) {
             initMainMenu();
-        } else if (l == 1) {
+        } else if (l == GAMESCREEN) {
             initGameScreen();
         } else {
             initCredits();
