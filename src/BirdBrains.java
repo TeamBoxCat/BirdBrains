@@ -51,30 +51,24 @@ public class BirdBrains extends PApplet {
     boolean p1first = false;
     
     //Constants
-    private static final int HILARY = 0;
-    private static final int TRUMP = 1;
-    private static final int MENU = 0;
-    private static final int GAMESCREEN = 1;
-    private static final int CREDITS = 2;
-    private static final int LOADINGSCREN = 3;
+    public static final int HILARY = 0;
+    public static final int TRUMP = 1;
+    public static final int MENU = 0;
+    public static final int GAMESCREEN = 1;
+    public static final int CREDITS = 2;
+    public static final int LOADINGSCREEN = 3;
 
     Minim minim;
     LinkedList<String> sounds;
     SoundController sc;
+    private Preloader preloader;
 
     public void setup() {
+        currentLevel = LOADINGSCREEN;
         GAME = this;
         TWITS = new TweetFetcher();
         TWITS.addQuery("#dumptrump -http -https -RT", 200);
         TWITS.addQuery("#ImNotWithHer -http -https -RT", 200);
-        try{
-            TWITS.loadTweets();
-        }
-        catch(Exception e){
-        //NO connection page
-        }
-        
-        //implement loading screen
         
         background(0);
 
@@ -88,34 +82,41 @@ public class BirdBrains extends PApplet {
 
         tempBack = genBack();
         initMainMenu();
+        preloader = new Preloader();
     }
 
     public void draw() {
 
         textAlign(CENTER, CENTER);
-        background(0);
-        levels.get(currentLevel).draw();
-        if (currentLevel == 1) {
-            trump.draw();
-            hillary.draw();
-        }
+        background(125);
+        if (currentLevel != LOADINGSCREEN) {
+            levels.get(currentLevel).draw();
+            if (currentLevel == 1) {
+                trump.draw();
+                hillary.draw();
+            }
 
-        if (!sc.sound.equals(sounds.get(0)) && (currentLevel == 0 || currentLevel == 2)) {
-            sc.playNext(sounds.get(0));
-        }
-        if (currentLevel == 1 && hillary.health > trump.health && !sc.sound.equals(sounds.get(2))) {
-            sc.playNext(sounds.get(2));
-        } else if (currentLevel == 1 && hillary.health < trump.health && !sc.sound.equals(sounds.get(1))) {
-            sc.playNext(sounds.get(1));
-        }
+            if (!sc.sound.equals(sounds.get(0)) && (currentLevel == 0 || currentLevel == 2)) {
+                sc.playNext(sounds.get(0));
+            }
+            if (currentLevel == 1 && hillary.health > trump.health && !sc.sound.equals(sounds.get(2))) {
+                sc.playNext(sounds.get(2));
+            } else if (currentLevel == 1 && hillary.health < trump.health && !sc.sound.equals(sounds.get(1))) {
+                sc.playNext(sounds.get(1));
+            }
 
-        if (currentLevel == 1) {
-            if (trump.health <= 0) {
-                gameOver("Hillary");
-            } else if (hillary.health <= 0) {
-                gameOver("Trump");
+            if (currentLevel == 1) {
+                if (trump.health <= 0) {
+                    gameOver("Hillary");
+                } else if (hillary.health <= 0) {
+                    gameOver("Trump");
+                }
             }
         }
+        else{
+            preloader.draw();
+        }
+        
         sc.update();
     }
 
