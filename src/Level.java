@@ -50,6 +50,10 @@ public class Level {
     public void setBtnActive(int id, boolean bool) {
         getButton(id).active = bool;
     }
+    
+    public void setBtnDisabled(int id, boolean bool) {
+        getButton(id).disabled = bool;
+    }
 
     public Button getButton(int id) {
         for (Button b : buttons) {

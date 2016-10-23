@@ -4,7 +4,7 @@ import java.util.LinkedList;
 public class Button {
 
     int id;
-    boolean active;
+    boolean active,disabled;
     float x, y;
     float w, h;
     String text;
@@ -21,6 +21,7 @@ public class Button {
         textSize = h * .5f;
         setPadding(w * 0.10f, h * 0.10f);
         active = true;
+        disabled = false;
     }
     
     Button(float x, float y, float w, float h, int id) {
@@ -60,7 +61,7 @@ public class Button {
     }
 
     public boolean over() {
-        if (active) {
+        if (active && !disabled) {
             if (BirdBrains.GAME.mouseX >= x && BirdBrains.GAME.mouseX <= (x + w) && BirdBrains.GAME.mouseY >= y && BirdBrains.GAME.mouseY <= (y + h)) {
                 return true;
             }
