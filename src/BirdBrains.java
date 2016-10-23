@@ -67,8 +67,8 @@ public class BirdBrains extends PApplet {
         currentLevel = LOADINGSCREEN;
         GAME = this;
         TWITS = new TweetFetcher();
-        TWITS.addQuery("#dumptrump -http -https -RT", 200);
-        TWITS.addQuery("#ImNotWithHer -http -https -RT", 200);
+        TWITS.addQuery("@realDonaldTrump #dumptrump -http -https -RT", 200);
+        TWITS.addQuery("@HillaryClinton #ImNotWithHer -http -https -RT", 200);
         
         background(0);
 
@@ -130,7 +130,10 @@ public class BirdBrains extends PApplet {
     }
 
     public void mousePressed() {
-        levels.get(currentLevel).mousePressed();
+        if(currentLevel == LOADINGSCREEN)
+            preloader.mousePressed();
+        else
+            levels.get(currentLevel).mousePressed();
     }
 
     public void initMainMenu() { //<>//
