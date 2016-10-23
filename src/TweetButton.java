@@ -16,5 +16,14 @@ public class TweetButton extends Button{
         tweet = BirdBrains.TWITS.getTweet(candidate);
         text = tweet.getMessage();
     }
+    
+    public int getDamage(){
+        int dmg = tweet.getRetweets();
+        if(dmg>100)
+            dmg/=10;
+        else
+            dmg = (int)((dmg + 20) * Math.max(0.5, Math.random()));
+        return dmg;
+    }
 
 }

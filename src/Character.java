@@ -1,5 +1,5 @@
 
-public class Player {
+public class Character {
 
     String name;
     float health;
@@ -12,7 +12,7 @@ public class Player {
     float animCount = 0;
     int anim = 0;
 
-    public Player(String name, float x, float y, boolean ai) {
+    public Character(String name, float x, float y, boolean ai) {
         health = 1;
         this.name = name;
         this.ai = ai;
@@ -64,5 +64,10 @@ public class Player {
         if (health >= 0) {
             BirdBrains.GAME.rect(x + 4, y + 4, (w - 8) * health, h - 8);
         }
+    }
+
+    void dealDmg(int dmg, Character enemy) {
+        enemy.takeDmg(dmg);
+        
     }
 }

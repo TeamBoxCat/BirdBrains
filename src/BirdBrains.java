@@ -46,12 +46,12 @@ public class BirdBrains extends PApplet {
     public static TweetFetcher TWITS;
     LinkedList<Level> levels = new LinkedList<Level>();
     int currentLevel = 0;
-    Player trump, hillary, p1, p2;
+    Character trump, hillary;
     PImage tempBack;
-    boolean p1first = false;
+    private int currentTurn = -1;
     
     //Constants
-    public static final int HILARY = 0;
+    public static final int HILLARY = 0;
     public static final int TRUMP = 1;
     public static final int MENU = 0;
     public static final int GAMESCREEN = 1;
@@ -67,8 +67,8 @@ public class BirdBrains extends PApplet {
         currentLevel = LOADINGSCREEN;
         GAME = this;
         TWITS = new TweetFetcher();
-        TWITS.addQuery("#dumptrump -http -https -RT", 200);
-        TWITS.addQuery("#ImNotWithHer -http -https -RT", 200);
+        TWITS.addQuery("@realDonaldTrump #dumptrump -http -https -RT", 200);
+        TWITS.addQuery("@HillaryClinton #ImNotWithHer -http -https -RT", 200);
         
         background(0);
 
@@ -94,15 +94,11 @@ public class BirdBrains extends PApplet {
             if (currentLevel == 1) {
                 trump.draw();
                 hillary.draw();
+                handleTurn();
             }
 
             if (!sc.sound.equals(sounds.get(0)) && (currentLevel == 0 || currentLevel == 2)) {
                 sc.playNext(sounds.get(0));
-            }
-            if (currentLevel == 1 && hillary.health > trump.health && !sc.sound.equals(sounds.get(2))) {
-                sc.playNext(sounds.get(2));
-            } else if (currentLevel == 1 && hillary.health < trump.health && !sc.sound.equals(sounds.get(1))) {
-                sc.playNext(sounds.get(1));
             }
 
             if (currentLevel == 1) {
@@ -130,10 +126,13 @@ public class BirdBrains extends PApplet {
     }
 
     public void mousePressed() {
-        levels.get(currentLevel).mousePressed();
+        if(currentLevel == LOADINGSCREEN)
+            preloader.mousePressed();
+        else
+            levels.get(currentLevel).mousePressed();
     }
 
-    public void initMainMenu() { //<>//
+    public void initMainMenu() { 
         if (levels.size() < 1) {
             levels.add(new Level(MENU, "Main Menu"));
             levels.add(new Level(GAMESCREEN, "Game Screen"));
@@ -160,16 +159,18 @@ public class BirdBrains extends PApplet {
             @Override
             public void action() {
                 BirdBrains.GAME.trump.ai = false;
-                BirdBrains.GAME.p1 = BirdBrains.GAME.trump;
                 setLevel(GAMESCREEN);
+                randTurn();
             }
+
+            
         };
         ButtonAction hillaryActive = new ButtonAction() {
             @Override
             public void action() {
                 BirdBrains.GAME.hillary.ai = false;
-                BirdBrains.GAME.p1 = BirdBrains.GAME.hillary;
                 setLevel(GAMESCREEN);
+                randTurn();
             }
         };
         Button trumpBtn = new Button(width * .35f - 100, height * .4f, 200, 50, "Trump", 80, false);
@@ -178,12 +179,6 @@ public class BirdBrains extends PApplet {
         Button hillaryBtn = new Button(width * .65f - 100, height * .4f, 200, 50, "Hillary", 81, false);
         hillaryBtn.addAction(hillaryActive);
         levels.get(MENU).addButton(hillaryBtn);
-        Button trump2Btn = new Button(width * .35f - 100, height * .5f, 200, 50, "Trump", 90, false);
-        trump2Btn.addAction(trumpActive);
-        levels.get(MENU).addButton(trump2Btn);
-        Button hillary2Btn = new Button(width * .65f - 100, height * .5f, 200, 50, "Hillary", 91, false);
-        hillary2Btn.addAction(hillaryActive);
-        levels.get(MENU).addButton(hillary2Btn);
 
         Button oneP = new Button(width * .5f - 100, height * .4f, 200, 50, "1 Player", 1);
         oneP.addAction(new ButtonAction() {
@@ -199,7 +194,10 @@ public class BirdBrains extends PApplet {
         twoP.addAction(new ButtonAction() {
             @Override
             public void action() {
-                playerSelect(2);
+                BirdBrains.GAME.trump.ai = false;
+                BirdBrains.GAME.hillary.ai = false;
+                setLevel(GAMESCREEN);
+                randTurn();
             }
         }
         );
@@ -239,49 +237,55 @@ public class BirdBrains extends PApplet {
         levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.1f, 200, 50, 1, TRUMP));
         levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.2f, 200, 50, 2, TRUMP));
         levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.3f, 200, 50, 3, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.1f, 200, 50, 4, HILARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.2f, 200, 50, 5, HILARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.3f, 200, 50, 6, HILARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.1f, 200, 50, 4, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.2f, 200, 50, 5, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.3f, 200, 50, 6, HILLARY));
 
         levels.get(GAMESCREEN).getButton(1).addAction(new ButtonAction() {
             @Override
             public void action() {
-                hillary.takeDmg(10);
+                trump.dealDmg(((TweetButton)(levels.get(GAMESCREEN).getButton(1))).getDamage(), hillary);
+                currentTurn = HILLARY;
             }
         }
         );
         levels.get(GAMESCREEN).getButton(2).addAction(new ButtonAction() {
             @Override
             public void action() {
-                hillary.takeDmg(5);
+                trump.dealDmg(((TweetButton)(levels.get(GAMESCREEN).getButton(2))).getDamage(), hillary);
+                currentTurn = HILLARY;
             }
         }
         );
         levels.get(GAMESCREEN).getButton(3).addAction(new ButtonAction() {
             @Override
             public void action() {
-                hillary.takeDmg(1);
+                trump.dealDmg(((TweetButton)(levels.get(GAMESCREEN).getButton(3))).getDamage(), hillary);
+                currentTurn = HILLARY;
             }
         }
         );
         levels.get(GAMESCREEN).getButton(4).addAction(new ButtonAction() {
             @Override
             public void action() {
-                trump.takeDmg(5);
+                hillary.dealDmg(((TweetButton)(levels.get(GAMESCREEN).getButton(4))).getDamage(), trump);
+                currentTurn = TRUMP;
             }
         }
         );
         levels.get(GAMESCREEN).getButton(5).addAction(new ButtonAction() {
             @Override
             public void action() {
-                trump.takeDmg(1);
+                hillary.dealDmg(((TweetButton)(levels.get(GAMESCREEN).getButton(5))).getDamage(), trump);
+                currentTurn = TRUMP;
             }
         }
         );
         levels.get(GAMESCREEN).getButton(6).addAction(new ButtonAction() {
             @Override
             public void action() {
-                trump.takeDmg(10);
+                hillary.dealDmg(((TweetButton)(levels.get(GAMESCREEN).getButton(6))).getDamage(), trump);
+                currentTurn = TRUMP;
             }
         }
         );
@@ -350,26 +354,16 @@ public class BirdBrains extends PApplet {
 
     public void playerSelect(int id) {
         if (id == 1) {
-            levels.get(currentLevel).setBtnActive(90, false);
-            levels.get(currentLevel).setBtnActive(91, false);
             levels.get(currentLevel).setBtnActive(2, true);
             levels.get(currentLevel).setBtnActive(80, true);
             levels.get(currentLevel).setBtnActive(81, true);
             levels.get(currentLevel).setBtnActive(1, false);
         }
-        if (id == 2) {
-            levels.get(currentLevel).setBtnActive(80, false);
-            levels.get(currentLevel).setBtnActive(81, false);
-            levels.get(currentLevel).setBtnActive(1, true);
-            levels.get(currentLevel).setBtnActive(90, true);
-            levels.get(currentLevel).setBtnActive(91, true);
-            levels.get(currentLevel).setBtnActive(2, false);
-        }
     }
 
     public void initChars() {
-        trump = new Player("Trump", width * 0.1f, height * 0.4f, true);
-        hillary = new Player("Hillary", width * 0.9f - 200, height * 0.4f, true);
+        trump = new Character("Trump", width * 0.1f, height * 0.4f, true);
+        hillary = new Character("Hillary", width * 0.9f - 200, height * 0.4f, true);
         trump.addSprite(new Sprite("./data/trump.png", 64, 64));
         hillary.addSprite(new Sprite("./data/hillary.png", 64, 64));
 
@@ -406,5 +400,37 @@ public class BirdBrains extends PApplet {
         } else {
             PApplet.main(appletArgs);
         }
+    }
+
+    private void handleTurn() {
+        if(currentTurn == HILLARY){
+            levels.get(currentLevel).setBtnDisabled(1, true);
+            levels.get(currentLevel).setBtnDisabled(2, true);
+            levels.get(currentLevel).setBtnDisabled(3, true);
+            levels.get(currentLevel).setBtnDisabled(4, false);
+            levels.get(currentLevel).setBtnDisabled(5, false);
+            levels.get(currentLevel).setBtnDisabled(6, false);
+        }
+        else if(currentTurn == TRUMP){
+            levels.get(currentLevel).setBtnDisabled(1, false);
+            levels.get(currentLevel).setBtnDisabled(2, false);
+            levels.get(currentLevel).setBtnDisabled(3, false);
+            levels.get(currentLevel).setBtnDisabled(4, true);
+            levels.get(currentLevel).setBtnDisabled(5, true);
+            levels.get(currentLevel).setBtnDisabled(6, true);
+        }
+        else{
+            levels.get(currentLevel).setBtnDisabled(1, true);
+            levels.get(currentLevel).setBtnDisabled(2, true);
+            levels.get(currentLevel).setBtnDisabled(3, true);
+            levels.get(currentLevel).setBtnDisabled(4, true);
+            levels.get(currentLevel).setBtnDisabled(5, true);
+            levels.get(currentLevel).setBtnDisabled(6, true);
+        }
+    }
+    
+    private void randTurn() {
+        Random rand = new Random();
+        currentTurn = rand.nextInt(2);
     }
 }
