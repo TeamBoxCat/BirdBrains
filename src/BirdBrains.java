@@ -295,7 +295,7 @@ public class BirdBrains extends PApplet {
             b.addAction(new ButtonAction() {
                 @Override
                 public void action() {
-                    b.refreshTweet();
+                    b.setIsMoving();
                 }
             }
             );
