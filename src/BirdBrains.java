@@ -234,12 +234,12 @@ public class BirdBrains extends PApplet {
         }
         );
         levels.get(GAMESCREEN).addButton(mainButton);
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.1f, 200, 50, 1, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.2f, 200, 50, 2, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.3f, 200, 50, 3, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.1f, 200, 50, 4, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.2f, 200, 50, 5, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f - 200, height * 0.3f, 200, 50, 6, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f - 400, height * 0.1f, 200, 50, 1, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f - 460, height * 0.2f, 200, 50, 2, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f - 500, height * 0.3f, 200, 50, 3, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f + 200, height * 0.1f, 200, 50, 4, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f + 260, height * 0.2f, 200, 50, 5, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f + 300, height * 0.3f, 200, 50, 6, HILLARY));
 
         levels.get(GAMESCREEN).getButton(1).addAction(new ButtonAction() {
             @Override
@@ -295,7 +295,7 @@ public class BirdBrains extends PApplet {
             b.addAction(new ButtonAction() {
                 @Override
                 public void action() {
-                    b.refreshTweet();
+                    b.setIsMoving();
                 }
             }
             );
