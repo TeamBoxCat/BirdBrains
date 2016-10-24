@@ -1,4 +1,7 @@
 
+import java.util.Random;
+
+
 public class Character {
 
     String name;
@@ -11,10 +14,12 @@ public class Character {
     boolean dead = false;
     float animCount = 0;
     int anim = 0;
+    int candidate = 0;
 
-    public Character(String name, float x, float y, boolean ai) {
+    public Character(int candidate , float x, float y, boolean ai) {
         health = 1;
-        this.name = name;
+        this.candidate = candidate;
+        this.name = candidate == BirdBrains.HILLARY? "Hillary" : "Trump";
         this.ai = ai;
         this.x = x;
         this.y = y;
@@ -46,6 +51,12 @@ public class Character {
                 animCount = 0;
             }
         }
+        
+        if(BirdBrains.GAME.currentTurn == candidate && ai && !BirdBrains.GAME.isGameOver){
+            if(!BirdBrains.GAME.levels.get(BirdBrains.GAME.currentLevel).anyAnimating()){
+                takeTurn();
+            }
+        }
     }
 
     public void addSprite(Sprite s) {
@@ -68,6 +79,21 @@ public class Character {
 
     void dealDmg(int dmg, Character enemy) {
         enemy.takeDmg(dmg);
+        
+    }
+
+    private void takeTurn() {
+        int[] trumpOptions = new int[]{1,2,3};
+        int[] hillaryOptions = new int[]{4,5,6};
+        TweetButton tb;
+        Random rand = new Random();
+        if(candidate == BirdBrains.GAME.HILLARY)
+            tb = (TweetButton)BirdBrains.GAME.levels.get(BirdBrains.GAME.currentLevel).buttons.get(hillaryOptions[rand.nextInt(3)]);
+        else
+            tb = (TweetButton)BirdBrains.GAME.levels.get(BirdBrains.GAME.currentLevel).buttons.get(trumpOptions[rand.nextInt(3)]);
+        
+        for(ButtonAction a : tb.actions)
+            a.action();
         
     }
 }

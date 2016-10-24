@@ -11,7 +11,7 @@ public class Button {
     float textSize, paddingX, paddingY;
     LinkedList<ButtonAction> actions = new LinkedList<ButtonAction>();
 
-    Button(float x, float y, float w, float h, String text, int id) {
+    public Button(float x, float y, float w, float h, String text, int id) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -24,7 +24,7 @@ public class Button {
         disabled = false;
     }
     
-    Button(float x, float y, float w, float h, int id) {
+    public Button(float x, float y, float w, float h, int id) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -36,10 +36,12 @@ public class Button {
         text="";
     }
 
-    Button(float x, float y, float w, float h, String text, int id, boolean active) {
+    public Button(float x, float y, float w, float h, String text, int id, boolean active) {
         this(x, y, w, h, text, id);
         this.active = active;
     }
+    
+    public Button(){}
 
     public void setPadding(float x, float y) {
         paddingX = x;

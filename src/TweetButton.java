@@ -17,6 +17,8 @@ public class TweetButton extends Button{
         text = tweet.getMessage();
     }
     
+    public TweetButton(){super();}
+    
     public void refreshTweet(){
         tweet = BirdBrains.TWITS.getTweet(candidate);
         text = tweet.getMessage();
@@ -34,6 +36,8 @@ public class TweetButton extends Button{
     public void setIsMoving() {
         isMoving = true;
     }
+    
+    public boolean getIsMoving(){return isMoving;}
     
     public void moveTo() {
         float xSpeed;
