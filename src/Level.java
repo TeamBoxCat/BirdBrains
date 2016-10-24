@@ -69,12 +69,22 @@ public class Level {
 
     public void mousePressed() {
         for (Button b : buttons) {
-            if (b.over()) {
-                for (ButtonAction a : b.actions) {
-                    a.action();
+            if (!anyAnimating()) {
+                if (b.over()) {
+                    for (ButtonAction a : b.actions) {
+                        a.action();
+                    }
                 }
-                //println("over");
             }
         }
+    }
+
+    public boolean anyAnimating() {
+        for(Button b : buttons){
+            if(b instanceof TweetButton)
+                if(((TweetButton)b).getIsMoving())
+                    return true;
+        }
+        return false;
     }
 }

@@ -48,7 +48,7 @@ public class BirdBrains extends PApplet {
     int currentLevel = 0;
     Character trump, hillary;
     PImage tempBack;
-    private int currentTurn = -1;
+    public int currentTurn = -1;
     
     //Constants
     public static final int HILLARY = 0;
@@ -65,6 +65,7 @@ public class BirdBrains extends PApplet {
     LinkedList<String> sounds;
     SoundController sc;
     private Preloader preloader;
+    public boolean isGameOver = false;
 
     public void setup() {
         currentLevel = LOADINGSCREEN;
@@ -122,6 +123,7 @@ public class BirdBrains extends PApplet {
     }
 
     public void gameOver(String winner) {
+        isGameOver = true;
         for (Button b : levels.get(1).buttons) {
             if (b.id != 0) {
                 b.active = false;
@@ -367,8 +369,8 @@ public class BirdBrains extends PApplet {
     }
 
     public void initChars() {
-        trump = new Character("Trump", width * 0.1f, height * 0.4f, true);
-        hillary = new Character("Hillary", width * 0.9f - 200, height * 0.4f, true);
+        trump = new Character(TRUMP, width * 0.1f, height * 0.4f, true);
+        hillary = new Character(HILLARY, width * 0.9f - 200, height * 0.4f, true);
         trump.addSprite(new Sprite("./data/trump.png", 64, 64));
         hillary.addSprite(new Sprite("./data/hillary.png", 64, 64));
 
