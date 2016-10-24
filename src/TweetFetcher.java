@@ -37,7 +37,7 @@ public class TweetFetcher{
 	  			
 	  		for (Status status : statusList) {  
  				Tweet newTweet = new Tweet(status.getText(), status.getRetweetCount(), status.getUser().getName());
- 				//System.out.print(newTweet);
+                                
  				tweetList.add(newTweet);
   	  		}
 	  		tweetSuperList.add(tweetList);
