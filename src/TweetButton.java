@@ -9,6 +9,8 @@ public class TweetButton extends Button{
     
     public TweetButton(float x, float y, float w, float h, int id, int candidate) {
         super(x, y, w, h, id);
+        defaultX = x;
+        defaultY = y;
         this.candidate = candidate;
         textSize = 10;
         tweet = BirdBrains.TWITS.getTweet(candidate);
