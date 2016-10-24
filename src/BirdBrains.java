@@ -57,6 +57,9 @@ public class BirdBrains extends PApplet {
     public static final int GAMESCREEN = 1;
     public static final int CREDITS = 2;
     public static final int LOADINGSCREEN = 3;
+    public static double DELTA_TIME = 0.0;
+    
+    private long lastTime = System.nanoTime();
 
     Minim minim;
     LinkedList<String> sounds;
@@ -86,7 +89,11 @@ public class BirdBrains extends PApplet {
     }
 
     public void draw() {
-
+        
+        long currentTime = System.nanoTime();
+        DELTA_TIME = ((double)currentTime - lastTime) /1000000000;
+        lastTime = currentTime;
+        
         textAlign(CENTER, CENTER);
         background(125);
         if (currentLevel != LOADINGSCREEN) {
