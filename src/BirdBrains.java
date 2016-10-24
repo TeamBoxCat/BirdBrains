@@ -69,9 +69,7 @@ public class BirdBrains extends PApplet {
     public void setup() {
         currentLevel = LOADINGSCREEN;
         GAME = this;
-        TWITS = new TweetFetcher();
-        TWITS.addQuery("@realDonaldTrump #dumptrump -http -https -RT", 200);
-        TWITS.addQuery("@HillaryClinton #ImNotWithHer -http -https -RT", 200);
+        
         
         background(0);
 

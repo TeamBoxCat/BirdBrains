@@ -39,12 +39,12 @@ public class TweetFetcher{
 		for (QueryResult queryResult : queryResultList) {
 			ArrayList<Tweet> tweetList = new ArrayList<>();
 	  		ArrayList<Status> statusList = (ArrayList<Status>) queryResult.getTweets();
-	  		System.out.println(statusList);
+	  		//System.out.println(statusList);
 	  			
 	  		for (Status status : statusList) {  
  				Tweet newTweet = new Tweet(status.getText(), status.getRetweetCount(),
 						status.getUser().getName(), nameGenerator.getName());
- 				System.out.print(newTweet);
+ 				//System.out.print(newTweet);
  				tweetList.add(newTweet);
   	  		}
 	  		tweetSuperList.add(tweetList);
