@@ -81,7 +81,7 @@ public class TweetButton extends Button{
         if(isMoving) {
             moveTo();
         }
-        spawn();
+        //spawn();
         super.draw();
     }
 }
