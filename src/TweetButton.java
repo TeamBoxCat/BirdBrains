@@ -78,10 +78,12 @@ public class TweetButton extends Button{
     
     @Override
     public void draw() {
-        if(isMoving) {
-            moveTo();
+        if (active) {
+            if (isMoving) {
+                moveTo();
+            }
+            //spawn();
+            super.draw();
         }
-        //spawn();
-        super.draw();
     }
 }
