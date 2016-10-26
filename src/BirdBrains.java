@@ -148,7 +148,7 @@ public class BirdBrains extends PApplet {
             levels.add(MENU, new Level(MENU, "Main Menu"));
         }
         levels.get(MENU).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
-        levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "Something Something Politics"));
+        levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "A Game of Twits"));
 
         initChars();
 

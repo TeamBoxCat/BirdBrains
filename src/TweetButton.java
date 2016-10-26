@@ -29,7 +29,7 @@ public class TweetButton extends Button{
         if(dmg>100)
             dmg/=10;
         else
-            dmg = (int)((dmg + 20) * Math.max(0.5, Math.random()));
+            dmg = (int)(dmg + 20);
         return dmg;
     }
     
