@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="minim">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/minim/tritonus_aos.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/minim/jsminim.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/minim/tritonus_share.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/minim/jl1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/minim/mp3spi1.9.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/minim/minim.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
