@@ -48,6 +48,7 @@ public class BirdBrains extends PApplet {
     int currentLevel = 0;
     Character trump, hillary;
     PImage tempBack;
+    PImage stageBg;
     public int currentTurn = -1;
     
     //Constants
@@ -58,6 +59,7 @@ public class BirdBrains extends PApplet {
     public static final int CREDITS = 2;
     public static final int LOADINGSCREEN = 3;
     public static double DELTA_TIME = 0.0;
+    public static PFont FONT;
     
     private long lastTime = System.nanoTime();
 
@@ -66,11 +68,13 @@ public class BirdBrains extends PApplet {
     SoundController sc;
     private Preloader preloader;
     public boolean isGameOver = false;
+    private int backgroundColour = 0x0353A4;
 
     public void setup() {
         currentLevel = LOADINGSCREEN;
         GAME = this;
-        
+        FONT = createFont("./data/Capital Daren Regular.ttf", 20);
+        textFont(FONT);
         
         background(0);
         
@@ -83,18 +87,19 @@ public class BirdBrains extends PApplet {
         sc = new SoundController(sounds.get(0));
 
         tempBack = genBack();
+        stageBg = loadImage("stage_noDesk.jpg");
         initMainMenu();
         preloader = new Preloader();
     }
 
     public void draw() {
-        
+        System.out.println(frameRate);
         long currentTime = System.nanoTime();
         DELTA_TIME = ((double)currentTime - lastTime) /1000000000;
         lastTime = currentTime;
         
         textAlign(CENTER, CENTER);
-        background(125);
+        background(backgroundColour);
         if (currentLevel != LOADINGSCREEN) {
             levels.get(currentLevel).draw();
             if (currentLevel == 1) {
@@ -147,8 +152,6 @@ public class BirdBrains extends PApplet {
         } else {
             levels.add(MENU, new Level(MENU, "Main Menu"));
         }
-        levels.get(MENU).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
-        levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "A Game of Twits"));
 
         initChars();
 
@@ -180,14 +183,14 @@ public class BirdBrains extends PApplet {
                 randTurn();
             }
         };
-        Button trumpBtn = new Button(width * .65f - 100, height * .4f, 200, 50, "Trump", 80, false);
+        Button trumpBtn = new Button(width * .65f - 100, height * .55f, 200, 50, "Trump", 80, false);
         trumpBtn.addAction(trumpActive);
         levels.get(MENU).addButton(trumpBtn);
-        Button hillaryBtn = new Button(width * .35f - 100, height * .4f, 200, 50, "Hillary", 81, false);
+        Button hillaryBtn = new Button(width * .35f - 100, height * .55f, 200, 50, "Hillary", 81, false);
         hillaryBtn.addAction(hillaryActive);
         levels.get(MENU).addButton(hillaryBtn);
 
-        Button oneP = new Button(width * .5f - 100, height * .4f, 200, 50, "1 Player", 1);
+        Button oneP = new Button(width * .5f - 100, height * .55f, 200, 50, "1 Player", 1);
         oneP.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -197,7 +200,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(oneP);
 
-        Button twoP = new Button(width * .5f - 100, height * .5f, 200, 50, "2 Players", 2);
+        Button twoP = new Button(width * .5f - 100, height * .65f, 200, 50, "2 Players", 2);
         twoP.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -210,7 +213,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(twoP);
 
-        Button credits = new Button(width * .5f - 50, height * .6f, 100, 50, "Credits", 3);
+        Button credits = new Button(width * .5f - 50, height * .75f, 100, 50, "Credits", 3);
         credits.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -220,7 +223,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(credits);
 
-        levels.get(MENU).setBackground(tempBack);
+        levels.get(MENU).setBackground(genBack(backgroundColour));
     }
 
     public void initGameScreen() {
@@ -231,7 +234,7 @@ public class BirdBrains extends PApplet {
             levels.add(GAMESCREEN, new Level(GAMESCREEN, "Game Screen"));
         }
 
-        levels.get(GAMESCREEN).setBackground(tempBack);
+        levels.get(GAMESCREEN).setBackground(stageBg);
 
         Button mainButton = new Button(0, 0, 100, 50, "Main", 0);
         mainButton.addAction(new ButtonAction() {
@@ -360,6 +363,21 @@ public class BirdBrains extends PApplet {
 
         return img;
     }
+    
+    public PImage genBack(int color){
+        PImage img = createImage(width, height, RGB);
+        img.loadPixels();
+        for (int i = 0; i < img.height; i++) {
+            for (int j = 0; j < img.width; j++) {
+                int c = color;
+                img.pixels[j + i * width] = c;
+            }
+        }
+
+        img.updatePixels();
+
+        return img;
+    }
 
     public void playerSelect(int id) {
         if (id == 1) {
@@ -442,4 +460,5 @@ public class BirdBrains extends PApplet {
         Random rand = new Random();
         currentTurn = rand.nextInt(2);
     }
+    
 }

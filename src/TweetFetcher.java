@@ -26,7 +26,6 @@ public class TweetFetcher{
 		configBuilder.setOAuthAccessTokenSecret("VB6QJzCA8zteayYyb4L8BnIr9gpUeP6pFapcrdu3jNH4l");
 		twitter = new TwitterFactory(configBuilder.build()).getInstance();
 		nameGenerator = new NameGenerator();
-		System.out.print(nameGenerator.getName());
 	}
 
 	//Downloads Tweets from Twitter and places them in a tweetList
