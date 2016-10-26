@@ -20,6 +20,7 @@ public class TextElement {
     }
 
     public void draw() {
+        BirdBrains.GAME.textFont(BirdBrains.GAME.FONT);
         BirdBrains.GAME.fill(255);
         BirdBrains.GAME.textAlign(align);
         BirdBrains.GAME.textSize(size);

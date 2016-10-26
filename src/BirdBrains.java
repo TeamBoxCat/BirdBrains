@@ -58,6 +58,7 @@ public class BirdBrains extends PApplet {
     public static final int CREDITS = 2;
     public static final int LOADINGSCREEN = 3;
     public static double DELTA_TIME = 0.0;
+    public static PFont FONT;
     
     private long lastTime = System.nanoTime();
 
@@ -71,7 +72,8 @@ public class BirdBrains extends PApplet {
     public void setup() {
         currentLevel = LOADINGSCREEN;
         GAME = this;
-        
+        FONT = createFont("./data/Capital Daren Regular.ttf", 20);
+        textFont(FONT);
         
         background(0);
 
@@ -181,14 +183,14 @@ public class BirdBrains extends PApplet {
                 randTurn();
             }
         };
-        Button trumpBtn = new Button(width * .65f - 100, height * .4f, 200, 50, "Trump", 80, false);
+        Button trumpBtn = new Button(width * .65f - 100, height * .55f, 200, 50, "Trump", 80, false);
         trumpBtn.addAction(trumpActive);
         levels.get(MENU).addButton(trumpBtn);
-        Button hillaryBtn = new Button(width * .35f - 100, height * .4f, 200, 50, "Hillary", 81, false);
+        Button hillaryBtn = new Button(width * .35f - 100, height * .55f, 200, 50, "Hillary", 81, false);
         hillaryBtn.addAction(hillaryActive);
         levels.get(MENU).addButton(hillaryBtn);
 
-        Button oneP = new Button(width * .5f - 100, height * .4f, 200, 50, "1 Player", 1);
+        Button oneP = new Button(width * .5f - 100, height * .55f, 200, 50, "1 Player", 1);
         oneP.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -198,7 +200,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(oneP);
 
-        Button twoP = new Button(width * .5f - 100, height * .5f, 200, 50, "2 Players", 2);
+        Button twoP = new Button(width * .5f - 100, height * .65f, 200, 50, "2 Players", 2);
         twoP.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -211,7 +213,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(twoP);
 
-        Button credits = new Button(width * .5f - 50, height * .6f, 100, 50, "Credits", 3);
+        Button credits = new Button(width * .5f - 50, height * .75f, 100, 50, "Credits", 3);
         credits.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -458,4 +460,5 @@ public class BirdBrains extends PApplet {
         Random rand = new Random();
         currentTurn = rand.nextInt(2);
     }
+    
 }

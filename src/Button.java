@@ -18,7 +18,7 @@ public class Button {
         this.h = h;
         this.text = text;
         this.id = id;
-        textSize = h * .5f;
+        textSize = h * .55f;
         setPadding(w * 0.10f, h * 0.10f);
         active = true;
         disabled = false;
@@ -30,7 +30,7 @@ public class Button {
         this.w = w;
         this.h = h;
         this.id = id;
-        textSize = h * .5f;
+        textSize = h * .55f;
         setPadding(w * 0.10f, h * 0.10f);
         active = true;
         text="";

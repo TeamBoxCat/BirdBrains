@@ -47,8 +47,9 @@ public class Level {
         }
         if(BirdBrains.GAME.currentLevel == BirdBrains.MENU)
         {
-            BirdBrains.GAME.image(title, BirdBrains.GAME.width * .25f, BirdBrains.GAME.height * .1f, 300,300);
-            BirdBrains.GAME.image(subTitle, BirdBrains.GAME.width * .25f, BirdBrains.GAME.height * .3f, 250, 210);
+            final float scale = 0.3f;
+            BirdBrains.GAME.image(title, BirdBrains.GAME.width * .5f - (title.width*scale)/2, BirdBrains.GAME.height * 0.0f, (int)(title.width*scale),(int)(title.height*scale));
+            BirdBrains.GAME.image(subTitle, BirdBrains.GAME.width * .5f - (subTitle.width*scale)/2, BirdBrains.GAME.height * .25f, (int)(subTitle.width*scale),(int)(subTitle.height*scale));
             
         }
         for (TextElement te : textElements) {
