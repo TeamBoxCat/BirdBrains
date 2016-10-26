@@ -93,7 +93,7 @@ public class BirdBrains extends PApplet {
     }
 
     public void draw() {
-        
+        System.out.println(frameRate);
         long currentTime = System.nanoTime();
         DELTA_TIME = ((double)currentTime - lastTime) /1000000000;
         lastTime = currentTime;

@@ -43,7 +43,9 @@ public class Level {
     public void draw() {
         
         if (background != null) {
-            BirdBrains.GAME.image(background, 0, 0, BirdBrains.GAME.width, BirdBrains.GAME.height);
+            //BirdBrains.GAME.image(background, 0, 0, BirdBrains.GAME.width, BirdBrains.GAME.height);
+            background.resize(BirdBrains.GAME.width, BirdBrains.GAME.height);
+            BirdBrains.GAME.background(background);
         }
         if(BirdBrains.GAME.currentLevel == BirdBrains.MENU)
         {
