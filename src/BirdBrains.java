@@ -48,6 +48,7 @@ public class BirdBrains extends PApplet {
     int currentLevel = 0;
     Character trump, hillary;
     PImage tempBack;
+    PImage stageBg;
     public int currentTurn = -1;
     
     //Constants
@@ -86,6 +87,7 @@ public class BirdBrains extends PApplet {
         sc = new SoundController(sounds.get(0));
 
         tempBack = genBack();
+        stageBg = loadImage("stage_noDesk.jpg");
         initMainMenu();
         preloader = new Preloader();
     }
@@ -150,8 +152,6 @@ public class BirdBrains extends PApplet {
         } else {
             levels.add(MENU, new Level(MENU, "Main Menu"));
         }
-        //levels.get(MENU).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
-        //levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "A Game of Twits"));
 
         initChars();
 
@@ -234,7 +234,7 @@ public class BirdBrains extends PApplet {
             levels.add(GAMESCREEN, new Level(GAMESCREEN, "Game Screen"));
         }
 
-        levels.get(GAMESCREEN).setBackground(tempBack);
+        levels.get(GAMESCREEN).setBackground(stageBg);
 
         Button mainButton = new Button(0, 0, 100, 50, "Main", 0);
         mainButton.addAction(new ButtonAction() {
