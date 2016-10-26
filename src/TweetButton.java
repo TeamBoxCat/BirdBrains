@@ -1,7 +1,9 @@
 
+import java.awt.Color;
 import static processing.core.PConstants.*;
 import processing.core.PFont;
 import processing.core.PImage;
+import processing.core.PVector;
 
 public class TweetButton extends Button{
     
@@ -13,6 +15,7 @@ public class TweetButton extends Button{
     float defaultX, defaultY;
     PImage egg = BirdBrains.GAME.loadImage("EggNude.png");
     PFont font = font = BirdBrains.GAME.createFont("Gotham Narrow Book.otf", 32);
+    private PVector color;
     
     public TweetButton(float x, float y, float w, float h, int id, int candidate) {
         super(x, y, w, h, id);
@@ -22,6 +25,10 @@ public class TweetButton extends Button{
         textSize = 10;
         tweet = BirdBrains.TWITS.getTweet(candidate);
         text = tweet.getMessage();
+        color = new PVector();
+        color.x = BirdBrains.GAME.random(255);
+        color.y = BirdBrains.GAME.random(255);
+        color.z = BirdBrains.GAME.random(255);
     }
     
     public TweetButton(){super();}
@@ -29,6 +36,9 @@ public class TweetButton extends Button{
     public void refreshTweet(){
         tweet = BirdBrains.TWITS.getTweet(candidate);
         text = tweet.getMessage();
+        color.x = BirdBrains.GAME.random(255);
+        color.y = BirdBrains.GAME.random(255);
+        color.z = BirdBrains.GAME.random(255);
     }
     
     public int getDamage(){
@@ -100,7 +110,7 @@ public class TweetButton extends Button{
                 BirdBrains.GAME.triangle(x + w - 40, y + h, x + w - 70, y + h, x + w - 55, y + h + 15);
             }
             // flashing eggs BEWARE!
-            BirdBrains.GAME.fill(BirdBrains.GAME.random(255), BirdBrains.GAME.random(255), BirdBrains.GAME.random(255));
+            BirdBrains.GAME.fill(color.x, color.y, color.z);
             BirdBrains.GAME.rect(x + 10, y + 10, 50, 50, 10);
             BirdBrains.GAME.image(egg, x + 10 , y + 10, 50, 50);
             

@@ -83,8 +83,8 @@ public class Character {
     }
 
     private void takeTurn() {
-        int[] hillaryOptions = new int[]{1,2,3};
-        int[] trumpOptions = new int[]{4,5,6};
+        int[] hillaryOptions = new int[]{0,1,2};
+        int[] trumpOptions = new int[]{3,4,5};
         TweetButton tb;
         Random rand = new Random();
         if(candidate == BirdBrains.GAME.HILLARY)
