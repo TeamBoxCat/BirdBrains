@@ -66,6 +66,7 @@ public class BirdBrains extends PApplet {
     SoundController sc;
     private Preloader preloader;
     public boolean isGameOver = false;
+    private int backgroundColour = 0x0353A4;
 
     public void setup() {
         currentLevel = LOADINGSCREEN;
@@ -94,7 +95,7 @@ public class BirdBrains extends PApplet {
         lastTime = currentTime;
         
         textAlign(CENTER, CENTER);
-        background(125);
+        background(backgroundColour);
         if (currentLevel != LOADINGSCREEN) {
             levels.get(currentLevel).draw();
             if (currentLevel == 1) {
@@ -147,8 +148,8 @@ public class BirdBrains extends PApplet {
         } else {
             levels.add(MENU, new Level(MENU, "Main Menu"));
         }
-        levels.get(MENU).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
-        levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "A Game of Twits"));
+        //levels.get(MENU).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
+        //levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "A Game of Twits"));
 
         initChars();
 
@@ -220,7 +221,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(credits);
 
-        levels.get(MENU).setBackground(tempBack);
+        levels.get(MENU).setBackground(genBack(backgroundColour));
     }
 
     public void initGameScreen() {
@@ -352,6 +353,21 @@ public class BirdBrains extends PApplet {
             for (int j = 0; j < img.width; j++) {
                 float offset = ((float) j) / width;
                 int c = lerpColor(c1, c2, offset);
+                img.pixels[j + i * width] = c;
+            }
+        }
+
+        img.updatePixels();
+
+        return img;
+    }
+    
+    public PImage genBack(int color){
+        PImage img = createImage(width, height, RGB);
+        img.loadPixels();
+        for (int i = 0; i < img.height; i++) {
+            for (int j = 0; j < img.width; j++) {
+                int c = color;
                 img.pixels[j + i * width] = c;
             }
         }
