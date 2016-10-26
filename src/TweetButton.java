@@ -12,15 +12,15 @@ public class TweetButton extends Button{
     private boolean needsRefresh = false;
     private boolean isMoving;
     private boolean isSpawning = true;
-    float defaultX, defaultY;
-    PImage egg = BirdBrains.GAME.loadImage("EggNude.png");
-    PFont font = font = BirdBrains.GAME.createFont("Gotham Narrow Book.otf", 32);
+    private float originalX, originalY;
+    private PImage egg = BirdBrains.GAME.loadImage("EggNude.png");
+    private PFont font = font = BirdBrains.GAME.createFont("Gotham Narrow Book.otf", 32);
     private PVector color;
     
     public TweetButton(float x, float y, float w, float h, int id, int candidate) {
         super(x, y, w, h, id);
-        defaultX = x;
-        defaultY = y;
+        originalX = x;
+        originalY = y;
         this.candidate = candidate;
         textSize = 10;
         tweet = BirdBrains.TWITS.getTweet(candidate);
@@ -57,42 +57,41 @@ public class TweetButton extends Button{
     public boolean getIsMoving(){return isMoving;}
     
     public void selectTweet() {
-        float xSpeed;
-        float ySpeed = (BirdBrains.GAME.height/3 - y) / 10;
+        float xSpeed = (BirdBrains.GAME.width/3 - x) / 10;
+        float ySpeed = (BirdBrains.GAME.height/5 - y) / 10;
         
         if(candidate == BirdBrains.GAME.TRUMP) {
-            xSpeed = (BirdBrains.GAME.width/3 - x) / 10;
             if(x <= BirdBrains.GAME.width/3 - 1) {
                 x += xSpeed;
                 y += ySpeed;
             } else {
                 isMoving = false;
-                x = defaultX;
-                y = defaultY;
+                x = originalX;
+                y = originalY;
                 refreshTweet();
+                isSpawning = true;
             }
         } else {
-            xSpeed = (BirdBrains.GAME.width/2 - x) / 10;
-            if(x >= BirdBrains.GAME.width/2 + 1) {
+            if(x >= BirdBrains.GAME.width/3 + 1) {
                 x += xSpeed;
                 y += ySpeed;
             } else {
                 isMoving = false;
-                x = defaultX;
-                y = defaultY;
+                x = originalX;
+                y = originalY;
                 refreshTweet();
+                isSpawning = true;
             }
         }
     }
     
     public void spawn() {
-        if(candidate == BirdBrains.GAME.TRUMP && x <= defaultX) {
+        if(candidate == BirdBrains.GAME.TRUMP && x <= originalX+w+100) {
             x += 20;
-        } else if (candidate == BirdBrains.GAME.HILLARY && x >= defaultX) {
+        } else if (candidate == BirdBrains.GAME.HILLARY && x >= originalX-w-100) {
             x -= 20;
         } else {
             isSpawning = false;
-            
         }
     }
     
@@ -130,8 +129,8 @@ public class TweetButton extends Button{
             selectTweet();
         }
         
-//        if(isSpawning) {
-//            spawn();
-//        }
+        if(isSpawning) {
+            spawn();
+        }
     }
 }
