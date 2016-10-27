@@ -44,7 +44,8 @@ public class Level {
         
         if (background != null) {
             background.resize(BirdBrains.GAME.width, BirdBrains.GAME.height);
-            BirdBrains.GAME.background(background);
+            BirdBrains.GAME.image(background, 0, 0, BirdBrains.GAME.width,BirdBrains.GAME.height);
+            //BirdBrains.GAME.background(background);
         }
         if(BirdBrains.GAME.currentLevel == BirdBrains.MENU)
         {
@@ -83,7 +84,7 @@ public class Level {
 
     public void mousePressed() {
         for (Button b : buttons) {
-            if (!anyAnimating()) {
+            if (!anyAnimating() || b.id == 0) {
                 if (b.over()) {
                     for (ButtonAction a : b.actions) {
                         a.action();
