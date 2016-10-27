@@ -77,7 +77,7 @@ public class BirdBrains extends PApplet {
         textFont(FONT);
         
         background(0);
-        noSmooth();
+        
         minim = new Minim(this);
 
         sounds = new LinkedList<String>();
@@ -247,12 +247,12 @@ public class BirdBrains extends PApplet {
         );
         
         levels.get(GAMESCREEN).addButton(mainButton);
-        levels.get(GAMESCREEN).addButton(new TweetButton(12, 12, 500, 185, 1, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(12, 258, 500, 185, 2, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(12, 504, 500, 185, 3, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width-512, 12, 500, 185, 4, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width-512, 258, 500, 185, 5, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width-512, 504, 500, 185, 6, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.0075f, height*.013f, width*.28f, height*.184f, 1, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.0075f, height*.22f, width*.28f, height*.184f, 2, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.0075f, height*.427f, width*.28f, height*.184f, 3, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.013f, width*.28f, height*.184f, 4, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.22f, width*.28f, height*.184f, 5, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.427f, width*.28f, height*.184f, 6, TRUMP));
 
         levels.get(GAMESCREEN).getButton(4).addAction(new ButtonAction() {
             @Override
@@ -392,7 +392,7 @@ public class BirdBrains extends PApplet {
 
     public void initChars() {
         hillary = new Character(HILLARY, width * 0.26f, height * 0.55f, true);
-        trump = new Character(TRUMP, width * 0.74f - 200, height * 0.55f, true);
+        trump = new Character(TRUMP, width * 0.74f - 212, height * 0.55f, true);
         trump.addSprite(new Sprite("./data/trump.png", 500, 500));
         hillary.addSprite(new Sprite("./data/hillary.png", 500, 500));
         trump.addProp(new Sprite("./data/podeum.png", 500, 500));
@@ -425,7 +425,8 @@ public class BirdBrains extends PApplet {
     }
 
     public void settings() {
-        size(1600, 900, FX2D);
+        //size(1600, 900, FX2D);
+        fullScreen(FX2D);
     }
 
     static public void main(String[] passedArgs) {

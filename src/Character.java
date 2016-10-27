@@ -82,8 +82,8 @@ public class Character {
     private void drawHealthBar(){
         float w = size*1.3f;
         float h = size*.15f;
-        float x = this.x;
-        float y = this.y + size*1.2f;
+        float x = this.x - w*.1f;
+        float y = this.y + size*1.005f;
         
         BirdBrains.GAME.fill(0);
         BirdBrains.GAME.rect(x, y, w, h);
