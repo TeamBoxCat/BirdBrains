@@ -43,7 +43,6 @@ public class Level {
     public void draw() {
         
         if (background != null) {
-            //BirdBrains.GAME.image(background, 0, 0, BirdBrains.GAME.width, BirdBrains.GAME.height);
             background.resize(BirdBrains.GAME.width, BirdBrains.GAME.height);
             BirdBrains.GAME.background(background);
         }
@@ -84,7 +83,7 @@ public class Level {
 
     public void mousePressed() {
         for (Button b : buttons) {
-            if (!anyAnimating()) {
+            if (!anyAnimating() || b.id == 0) {
                 if (b.over()) {
                     for (ButtonAction a : b.actions) {
                         a.action();
@@ -97,7 +96,7 @@ public class Level {
     public boolean anyAnimating() {
         for(Button b : buttons){
             if(b instanceof TweetButton)
-                if(((TweetButton)b).getIsMoving())
+                if(((TweetButton)b).getIsMoving() || ((TweetButton)b).getIsSpawning())
                     return true;
         }
         return false;
