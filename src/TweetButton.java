@@ -14,7 +14,7 @@ public class TweetButton extends Button{
     private boolean isSpawning = true;
     private float originalX, originalY;
     private PImage egg = BirdBrains.GAME.loadImage("EggNude.png");
-    private PFont font = font = BirdBrains.GAME.createFont("Gotham Narrow Book.otf", 32);
+    private PFont font = font = BirdBrains.GAME.createFont("GothamNarrow-Book+SegoeUIEmoji.ttf", 32);
     private PVector color;
     
     public TweetButton(float x, float y, float w, float h, int id, int candidate) {
