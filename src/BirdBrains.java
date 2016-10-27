@@ -246,12 +246,12 @@ public class BirdBrains extends PApplet {
         );
         
         levels.get(GAMESCREEN).addButton(mainButton);
-        levels.get(GAMESCREEN).addButton(new TweetButton(-612, 12, 500, 185, 1, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(-612, 258, 500, 185, 2, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(-612, 504, 500, 185, 3, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width+112, 12, 500, 185, 4, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width+112, 258, 500, 185, 5, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width+112, 504, 500, 185, 6, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(12, 12, 500, 185, 1, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(12, 258, 500, 185, 2, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(12, 504, 500, 185, 3, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width-512, 12, 500, 185, 4, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width-512, 258, 500, 185, 5, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width-512, 504, 500, 185, 6, TRUMP));
 
         levels.get(GAMESCREEN).getButton(4).addAction(new ButtonAction() {
             @Override
