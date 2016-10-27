@@ -59,6 +59,8 @@ public class BirdBrains extends PApplet {
     public static final int CREDITS = 2;
     public static final int LOADINGSCREEN = 3;
     public static double DELTA_TIME = 0.0;
+    public static PFont FONT;
+    public static FlavourTextFeeder FLAVOUR = new FlavourTextFeeder();
     
     private long lastTime = System.nanoTime();
 
@@ -67,20 +69,21 @@ public class BirdBrains extends PApplet {
     SoundController sc;
     private Preloader preloader;
     public boolean isGameOver = false;
+    private int backgroundColour = 0x0353A4;
 
     public void setup() {
         currentLevel = LOADINGSCREEN;
         GAME = this;
-        
+        FONT = createFont("./data/Capital Daren Regular.ttf", 20);
+        textFont(FONT);
         
         background(0);
-
+        
         minim = new Minim(this);
 
         sounds = new LinkedList<String>();
-        sounds.add("ssb.mp3");
-        sounds.add("money.mp3");
-        sounds.add("runtheworld.mp3");
+        sounds.add("HailToTheBeat.mp3");
+        sounds.add("Bullet-Riddled-Banner.mp3");
         sc = new SoundController(sounds.get(0));
 
         tempBack = genBack();
@@ -90,19 +93,28 @@ public class BirdBrains extends PApplet {
     }
 
     public void draw() {
-        
+        System.out.println(frameRate);
         long currentTime = System.nanoTime();
         DELTA_TIME = ((double)currentTime - lastTime) /1000000000;
         lastTime = currentTime;
         
         textAlign(CENTER, CENTER);
-        background(125);
+        background(backgroundColour);
         if (currentLevel != LOADINGSCREEN) {
+            preloader = null;
             levels.get(currentLevel).draw();
+            if(currentLevel != GAMESCREEN){
+                BirdBrains.GAME.isGameOver = false;
+            }
             if (currentLevel == 1) {
                 trump.draw();
                 hillary.draw();
                 handleTurn();
+                
+                if(!sc.sound.equals(sounds.get(1)))
+                {
+                    sc.playNext(sounds.get(1));
+                }
             }
 
             if (!sc.sound.equals(sounds.get(0)) && (currentLevel == 0 || currentLevel == 2)) {
@@ -149,8 +161,6 @@ public class BirdBrains extends PApplet {
         } else {
             levels.add(MENU, new Level(MENU, "Main Menu"));
         }
-        levels.get(MENU).addText(new TextElement(width * .5f, height * .15f, 50, "Bird Brains?"));
-        levels.get(MENU).addText(new TextElement(width * .5f, height * .25f, 30, "A Game of Twits"));
 
         initChars();
 
@@ -182,14 +192,14 @@ public class BirdBrains extends PApplet {
                 randTurn();
             }
         };
-        Button trumpBtn = new Button(width * .65f - 100, height * .4f, 200, 50, "Trump", 80, false);
+        Button trumpBtn = new Button(width * .65f - 100, height * .55f, 200, 50, "Trump", 80, false);
         trumpBtn.addAction(trumpActive);
         levels.get(MENU).addButton(trumpBtn);
-        Button hillaryBtn = new Button(width * .35f - 100, height * .4f, 200, 50, "Hillary", 81, false);
+        Button hillaryBtn = new Button(width * .35f - 100, height * .55f, 200, 50, "Hillary", 81, false);
         hillaryBtn.addAction(hillaryActive);
         levels.get(MENU).addButton(hillaryBtn);
 
-        Button oneP = new Button(width * .5f - 100, height * .4f, 200, 50, "1 Player", 1);
+        Button oneP = new Button(width * .5f - 100, height * .55f, 200, 50, "1 Player", 1);
         oneP.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -199,7 +209,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(oneP);
 
-        Button twoP = new Button(width * .5f - 100, height * .5f, 200, 50, "2 Players", 2);
+        Button twoP = new Button(width * .5f - 100, height * .65f, 200, 50, "2 Players", 2);
         twoP.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -212,7 +222,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(twoP);
 
-        Button credits = new Button(width * .5f - 50, height * .6f, 100, 50, "Credits", 3);
+        Button credits = new Button(width * .5f - 50, height * .75f, 100, 50, "Credits", 3);
         credits.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -222,7 +232,7 @@ public class BirdBrains extends PApplet {
         );
         levels.get(MENU).addButton(credits);
 
-        levels.get(MENU).setBackground(tempBack);
+        levels.get(MENU).setBackground(genBack(backgroundColour));
     }
 
     public void initGameScreen() {
@@ -235,7 +245,7 @@ public class BirdBrains extends PApplet {
 
         levels.get(GAMESCREEN).setBackground(stageBg);
 
-        Button mainButton = new Button(0, 0, 100, 50, "Main", 0);
+        Button mainButton = new Button(width/2-50, height*.9f, 100, 50, "Main", 0);
         mainButton.addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -243,13 +253,14 @@ public class BirdBrains extends PApplet {
             }
         }
         );
+        
         levels.get(GAMESCREEN).addButton(mainButton);
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.1f, 200, 50, 1, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.2f, 200, 50, 2, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.1f, height * 0.3f, 200, 50, 3, HILLARY));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f-200, height * 0.1f, 200, 50, 4, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f-200, height * 0.2f, 200, 50, 5, TRUMP));
-        levels.get(GAMESCREEN).addButton(new TweetButton(width * 0.9f-200, height * 0.3f, 200, 50, 6, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.0075f, height*.013f, width*.28f, height*.184f, 1, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.0075f, height*.22f, width*.28f, height*.184f, 2, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.0075f, height*.427f, width*.28f, height*.184f, 3, HILLARY));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.013f, width*.28f, height*.184f, 4, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.22f, width*.28f, height*.184f, 5, TRUMP));
+        levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.427f, width*.28f, height*.184f, 6, TRUMP));
 
         levels.get(GAMESCREEN).getButton(4).addAction(new ButtonAction() {
             @Override
@@ -362,6 +373,21 @@ public class BirdBrains extends PApplet {
 
         return img;
     }
+    
+    public PImage genBack(int color){
+        PImage img = createImage(width, height, RGB);
+        img.loadPixels();
+        for (int i = 0; i < img.height; i++) {
+            for (int j = 0; j < img.width; j++) {
+                int c = color;
+                img.pixels[j + i * width] = c;
+            }
+        }
+
+        img.updatePixels();
+
+        return img;
+    }
 
     public void playerSelect(int id) {
         if (id == 1) {
@@ -373,18 +399,24 @@ public class BirdBrains extends PApplet {
     }
 
     public void initChars() {
-        hillary = new Character(HILLARY, width * 0.1f, height * 0.4f, true);
-        trump = new Character(TRUMP, width * 0.9f - 200, height * 0.4f, true);
-        trump.addSprite(new Sprite("./data/trump.png", 64, 64));
-        hillary.addSprite(new Sprite("./data/hillary.png", 64, 64));
+        hillary = new Character(HILLARY, width * 0.26f + 12, height * 0.55f, true);
+        trump = new Character(TRUMP, width * 0.74f - 224, height * 0.55f, true);
+        trump.addSprite(new Sprite("./data/trump.png", 500, 500));
+        hillary.addSprite(new Sprite("./data/hillary.png", 500, 500));
+        trump.addProp(new Sprite("./data/podeum.png", 500, 500));
+        hillary.addProp(new Sprite("./data/podeum.png", 500, 500));
 
-        PVector[] trumpIdle = {new PVector(0, 3), new PVector(1, 3), new PVector(2, 3), new PVector(3, 3), new PVector(4, 3), new PVector(5, 3), new PVector(6, 3)};
-        PVector[] trumpLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+//        PVector[] trumpIdle = {new PVector(0, 3), new PVector(1, 3), new PVector(2, 3), new PVector(3, 3), new PVector(4, 3), new PVector(5, 3), new PVector(6, 3)};
+//        PVector[] trumpLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+        PVector[] trumpIdle = {new PVector(0, 0)};
+        PVector[] trumpLose = {new PVector(0, 0)};
         trump.sprite.animations.add(trumpIdle);
         trump.sprite.animations.add(trumpLose);
 
-        PVector[] hillaryIdle = {new PVector(0, 1), new PVector(1, 1), new PVector(2, 1), new PVector(3, 1), new PVector(4, 1), new PVector(5, 1), new PVector(6, 1)};
-        PVector[] hillaryLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+//        PVector[] hillaryIdle = {new PVector(0, 1), new PVector(1, 1), new PVector(2, 1), new PVector(3, 1), new PVector(4, 1), new PVector(5, 1), new PVector(6, 1)};
+//        PVector[] hillaryLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+        PVector[] hillaryIdle = {new PVector(0, 0)};
+        PVector[] hillaryLose = {new PVector(0, 0)};
         hillary.sprite.animations.add(hillaryIdle);
         hillary.sprite.animations.add(hillaryLose);
     }
@@ -401,7 +433,8 @@ public class BirdBrains extends PApplet {
     }
 
     public void settings() {
-        size(1280, 720);
+        //size(1600, 900, FX2D);
+        fullScreen(FX2D);
     }
 
     static public void main(String[] passedArgs) {

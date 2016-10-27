@@ -18,7 +18,7 @@ public class Button {
         this.h = h;
         this.text = text;
         this.id = id;
-        textSize = h * .5f;
+        textSize = h * .55f;
         setPadding(w * 0.10f, h * 0.10f);
         active = true;
         disabled = false;
@@ -30,7 +30,7 @@ public class Button {
         this.w = w;
         this.h = h;
         this.id = id;
-        textSize = h * .5f;
+        textSize = h * .55f;
         setPadding(w * 0.10f, h * 0.10f);
         active = true;
         text="";
@@ -50,10 +50,13 @@ public class Button {
 
     public void draw() {
         if (active) {
-            BirdBrains.GAME.fill(over() ? 0 : 255);
+            BirdBrains.GAME.stroke(10,36,99);
+            BirdBrains.GAME.strokeWeight(2);
+            BirdBrains.GAME.textFont(BirdBrains.FONT);
+            BirdBrains.GAME.fill(over() ? 180 : 255);
             BirdBrains.GAME.rect(x, y, w, h);
             BirdBrains.GAME.textSize(textSize);
-            BirdBrains.GAME.fill(over() ? 255 : 0);
+            BirdBrains.GAME.fill(0);
             BirdBrains.GAME.text(text, x, y, w, h);
         }
     }

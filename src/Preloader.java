@@ -1,4 +1,6 @@
 
+import java.util.LinkedList;
+import java.util.Random;
 import processing.core.PImage;
 
 public class Preloader {
@@ -13,10 +15,16 @@ public class Preloader {
     private boolean needLoad = true;
 
     public Preloader() {
+        Random rand = new Random();
+        
         loader = new TweetLoader();
+        background = BirdBrains.GAME.loadImage("load" + (rand.nextInt(9)+1) + ".jpg");
+        background.resize(BirdBrains.GAME.width, BirdBrains.GAME.height);
     }
 
     public void draw() {
+        //BirdBrains.GAME.background(background);
+        BirdBrains.GAME.image(background, 0, 0, BirdBrains.GAME.width,BirdBrains.GAME.height);
         if (!isLoading && needLoad) {
             new Thread(loader).start();
             isLoading = true;

@@ -18,6 +18,13 @@ class SoundController {
         audioPlayer.loop();
         isPlaying = true;
     }
+    
+    public void playSoundEffect() {
+        audioPlayer = BirdBrains.GAME.minim.loadFile(sound);
+        audioPlayer.setGain(gain);
+        audioPlayer.play();
+        isPlaying = true;
+    }
 
     public void update() {
         if (!isPlaying) {
