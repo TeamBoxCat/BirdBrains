@@ -103,6 +103,9 @@ public class BirdBrains extends PApplet {
         if (currentLevel != LOADINGSCREEN) {
             preloader = null;
             levels.get(currentLevel).draw();
+            if(currentLevel != GAMESCREEN){
+                BirdBrains.GAME.isGameOver = false;
+            }
             if (currentLevel == 1) {
                 trump.draw();
                 hillary.draw();

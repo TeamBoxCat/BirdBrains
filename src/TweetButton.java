@@ -62,8 +62,8 @@ public class TweetButton extends Button{
     public boolean getIsSpawning(){return isSpawning;}
     
     public void selectTweet() {
-        float xSpeed = ((BirdBrains.GAME.width/3 - x) / 7);
-        float ySpeed = ((BirdBrains.GAME.height/5 - y) / 7);
+        float xSpeed = ((BirdBrains.GAME.width/3 - x) / 6);
+        float ySpeed = ((BirdBrains.GAME.height/5 - y) / 6);
         
         if(candidate == BirdBrains.GAME.HILLARY) {
             if(x <= BirdBrains.GAME.width/3 - 1) {
