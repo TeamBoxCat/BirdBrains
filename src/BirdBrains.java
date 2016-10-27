@@ -425,7 +425,7 @@ public class BirdBrains extends PApplet {
     }
 
     public void settings() {
-        size(1600, 900);
+        size(1600, 900, FX2D);
     }
 
     static public void main(String[] passedArgs) {
