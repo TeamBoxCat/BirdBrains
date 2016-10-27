@@ -121,10 +121,10 @@ public class TweetButton extends Button{
             BirdBrains.GAME.textAlign(LEFT);
             BirdBrains.GAME.textSize(w*.06f);
             BirdBrains.GAME.fill(41,47,51);
-            BirdBrains.GAME.text(tweet.getName(), x + w*.13f, y + h*.08f, w - w*.1f, h - h*.27f);
+            BirdBrains.GAME.text(tweet.getUserName(), x + w*.13f, y + h*.08f, w - w*.1f, h - h*.27f);
             BirdBrains.GAME.textSize(w*.036f);
             BirdBrains.GAME.fill(0,102,153);
-            BirdBrains.GAME.text(tweet.getUserName(), x + w*.13f, y + h*.25f, w - w*.1f, h - h*.27f);
+            BirdBrains.GAME.text(tweet.getName(), x + w*.13f, y + h*.25f, w - w*.1f, h - h*.27f);
             BirdBrains.GAME.fill(0);
             BirdBrains.GAME.textSize(w*.042f);
             BirdBrains.GAME.text(tweet.getMessage(), x + w*.01f, y + h*.4f, w - w*.02f, h - h*.324f);

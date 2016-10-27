@@ -18,6 +18,7 @@ public class Level {
 
     private float counter = 0;
     private TextElement quote;
+    private int quoteColour;
     
     public Level(int id, String name) {
         this();
@@ -68,16 +69,18 @@ public class Level {
             
         }
         else if(BirdBrains.GAME.currentLevel == BirdBrains.GAMESCREEN){
-            if(counter >=5){
+            if(counter >=10){
                 quote.text = "";
                 counter = 0;
             }
             else if(!quote.text.equals(""))
                 counter += BirdBrains.DELTA_TIME;
-            if(Math.random() >= 0.9 && quote.text.equals(""))
+            if(Math.random() >= 0.9 && quote.text.equals("")) {
                 quote.text = newQuote();
+                quoteColour = BirdBrains.GAME.currentTurn;
+            }
             
-            quote.drawQuote();
+            quote.drawQuote(quoteColour);
         }
         
         for (TextElement te : textElements) {

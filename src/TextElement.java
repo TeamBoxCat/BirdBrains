@@ -28,9 +28,14 @@ public class TextElement {
         BirdBrains.GAME.textAlign(BirdBrains.GAME.CENTER, BirdBrains.GAME.CENTER);
     }
     
-    public void drawQuote() {
+    public void drawQuote(int turn) {
         BirdBrains.GAME.textFont(BirdBrains.GAME.FONT);
-        BirdBrains.GAME.fill(255);
+        if (turn == 0) {
+            BirdBrains.GAME.fill(3, 83, 164);
+        }
+        else {
+            BirdBrains.GAME.fill(237, 66, 47);
+        }
         BirdBrains.GAME.textAlign(align);
         BirdBrains.GAME.textSize(size);
         float w = BirdBrains.GAME.width*.18f;
