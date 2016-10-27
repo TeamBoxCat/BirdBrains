@@ -12,6 +12,10 @@ public class Level {
     private LinkedList<TextElement> textElements = new LinkedList<TextElement>();
     private LinkedList<Sprite> sprites = new LinkedList<Sprite>();
     public LinkedList<Button> buttons = new LinkedList<Button>();
+
+    LinkedList<String> soundEffect = new LinkedList<String>();
+    SoundController sec;
+
     private float counter = 0;
     private TextElement quote;
     
@@ -19,6 +23,8 @@ public class Level {
         this();
         this.id = id;
         this.name = name;
+        soundEffect.add("tweet.mp3");
+        sec = new SoundController(soundEffect.get(0));
     }
 
     public Level() {
@@ -106,6 +112,8 @@ public class Level {
         for (Button b : buttons) {
             if (!anyAnimating() || b.id == 0) {
                 if (b.over()) {
+                    if (b instanceof TweetButton)
+                    sec.playSoundEffect();
                     for (ButtonAction a : b.actions) {
                         a.action();
                     }
