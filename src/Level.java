@@ -19,6 +19,10 @@ public class Level {
     private float counter = 0;
     private TextElement quote;
     
+    private PImage spotlight = BirdBrains.GAME.loadImage("stagelights_spotlights_flashlights_allofthelights.png");
+    private boolean isIntro;
+    private float timer = 0;
+    
     public Level(int id, String name) {
         this();
         this.id = id;
@@ -86,6 +90,31 @@ public class Level {
         for (Button b : buttons) {
             b.draw();
         }
+        
+        if(isIntro) {
+            BirdBrains.GAME.tint(120);
+            timer += BirdBrains.DELTA_TIME;
+            for(int i = 1; i <= 6; i++)
+                setBtnActive(i, false);
+            if(timer >= 2) {
+                BirdBrains.GAME.noTint();
+                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.26f + 12, BirdBrains.GAME.height * 0.1f, 200, 750);
+                BirdBrains.GAME.tint(120);
+            }
+            if(timer >= 3) {
+                BirdBrains.GAME.noTint();
+                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.74f - 224, BirdBrains.GAME.height * 0.1f, 200, 750);
+                BirdBrains.GAME.tint(120);
+            }
+            if(timer >= 4) {
+                BirdBrains.GAME.noTint();
+                for(int i = 1; i <= 6; i++) {
+                    setBtnActive(i, true);
+                }
+                timer = 0;
+                setIsIntro(false);       
+            }
+        }
     }
 
     public void setBtnActive(int id, boolean bool) {
@@ -94,6 +123,10 @@ public class Level {
     
     public void setBtnDisabled(int id, boolean bool) {
         getButton(id).disabled = bool;
+    }
+    
+    public void setIsIntro(boolean bool) {
+        isIntro = bool;
     }
 
     public Button getButton(int id) {

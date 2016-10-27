@@ -244,7 +244,8 @@ public class BirdBrains extends PApplet {
         }
 
         levels.get(GAMESCREEN).setBackground(stageBg);
-
+        levels.get(GAMESCREEN).setIsIntro(true);
+        
         Button mainButton = new Button(width/2-50, height*.9f, 100, 50, "Main", 0);
         mainButton.addAction(new ButtonAction() {
             @Override
@@ -316,7 +317,7 @@ public class BirdBrains extends PApplet {
             b.addAction(new ButtonAction() {
                 @Override
                 public void action() {
-                    b.setIsMoving();
+                    b.setIsMoving(true);
                 }
             }
             );

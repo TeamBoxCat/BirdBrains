@@ -54,8 +54,8 @@ public class TweetButton extends Button{
         return dmg;
     }
     
-    public void setIsMoving() {
-        isMoving = true;
+    public void setIsMoving(boolean bool) {
+        isMoving = bool;
     }
     
     public boolean getIsMoving(){return isMoving;}
@@ -128,13 +128,13 @@ public class TweetButton extends Button{
             BirdBrains.GAME.fill(0);
             BirdBrains.GAME.textSize(w*.042f);
             BirdBrains.GAME.text(tweet.getMessage(), x + w*.01f, y + h*.4f, w - w*.02f, h - h*.324f);
-        }
-        if(isMoving) {
-            selectTweet();
-        }
-        
-        if(isSpawning) {
-            spawn();
+            if(isMoving) {
+                selectTweet();
+            }
+
+            if(isSpawning) {
+                spawn();
+            }
         }
     }
 }
