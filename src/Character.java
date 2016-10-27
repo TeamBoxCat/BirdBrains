@@ -1,5 +1,6 @@
 
 import java.util.Random;
+import processing.core.PVector;
 
 
 public class Character {
@@ -9,6 +10,7 @@ public class Character {
     boolean ai;
     float x, y;
     Sprite sprite;
+    Sprite prop;
     int size = 200;
     boolean idle = true;
     boolean dead = false;
@@ -42,6 +44,16 @@ public class Character {
         }
 
         BirdBrains.GAME.image(sprite.getAnim(anim, (int) animCount), x, y, size, size);
+        
+        if(candidate == BirdBrains.HILLARY){
+            BirdBrains.GAME.pushMatrix();
+            BirdBrains.GAME.scale(-1,1);
+            BirdBrains.GAME.image(prop.getSprite(new PVector(0,0)), (x*-1) - size, y, size, size);
+            BirdBrains.GAME.popMatrix();
+        }
+        else
+            BirdBrains.GAME.image(prop.getSprite(new PVector(0,0)), x, y, size, size);
+        
         drawHealthBar();
 
         if (!(anim == 1 && (int) animCount == sprite.animations.get(1).length - 1)) {
@@ -61,6 +73,10 @@ public class Character {
 
     public void addSprite(Sprite s) {
         sprite = s;
+    }
+    
+    public void addProp(Sprite s) {
+        prop = s; 
     }
     
     private void drawHealthBar(){

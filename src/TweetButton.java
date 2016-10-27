@@ -61,7 +61,7 @@ public class TweetButton extends Button{
         float xSpeed = (BirdBrains.GAME.width/3 - x) / 10;
         float ySpeed = (BirdBrains.GAME.height/5 - y) / 10;
         
-        if(candidate == BirdBrains.GAME.TRUMP) {
+        if(candidate == BirdBrains.GAME.HILLARY) {
             if(x <= BirdBrains.GAME.width/3 - 1) {
                 x += xSpeed;
                 y += ySpeed;

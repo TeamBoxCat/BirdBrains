@@ -390,18 +390,24 @@ public class BirdBrains extends PApplet {
     }
 
     public void initChars() {
-        hillary = new Character(HILLARY, width * 0.1f, height * 0.4f, true);
-        trump = new Character(TRUMP, width * 0.9f - 200, height * 0.4f, true);
-        trump.addSprite(new Sprite("./data/trump.png", 64, 64));
-        hillary.addSprite(new Sprite("./data/hillary.png", 64, 64));
+        hillary = new Character(HILLARY, width * 0.26f, height * 0.55f, true);
+        trump = new Character(TRUMP, width * 0.74f - 200, height * 0.55f, true);
+        trump.addSprite(new Sprite("./data/trump.png", 500, 500));
+        hillary.addSprite(new Sprite("./data/hillary.png", 500, 500));
+        trump.addProp(new Sprite("./data/podeum.png", 500, 500));
+        hillary.addProp(new Sprite("./data/podeum.png", 500, 500));
 
-        PVector[] trumpIdle = {new PVector(0, 3), new PVector(1, 3), new PVector(2, 3), new PVector(3, 3), new PVector(4, 3), new PVector(5, 3), new PVector(6, 3)};
-        PVector[] trumpLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+//        PVector[] trumpIdle = {new PVector(0, 3), new PVector(1, 3), new PVector(2, 3), new PVector(3, 3), new PVector(4, 3), new PVector(5, 3), new PVector(6, 3)};
+//        PVector[] trumpLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+        PVector[] trumpIdle = {new PVector(0, 0)};
+        PVector[] trumpLose = {new PVector(0, 0)};
         trump.sprite.animations.add(trumpIdle);
         trump.sprite.animations.add(trumpLose);
 
-        PVector[] hillaryIdle = {new PVector(0, 1), new PVector(1, 1), new PVector(2, 1), new PVector(3, 1), new PVector(4, 1), new PVector(5, 1), new PVector(6, 1)};
-        PVector[] hillaryLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+//        PVector[] hillaryIdle = {new PVector(0, 1), new PVector(1, 1), new PVector(2, 1), new PVector(3, 1), new PVector(4, 1), new PVector(5, 1), new PVector(6, 1)};
+//        PVector[] hillaryLose = {new PVector(0, 20), new PVector(1, 20), new PVector(2, 20), new PVector(3, 20), new PVector(4, 20), new PVector(5, 20)};
+        PVector[] hillaryIdle = {new PVector(0, 0)};
+        PVector[] hillaryLose = {new PVector(0, 0)};
         hillary.sprite.animations.add(hillaryIdle);
         hillary.sprite.animations.add(hillaryLose);
     }
