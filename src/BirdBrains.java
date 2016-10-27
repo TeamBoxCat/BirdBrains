@@ -68,7 +68,10 @@ public class BirdBrains extends PApplet {
     SoundController sc;
     private Preloader preloader;
     public boolean isGameOver = false;
+    private boolean isIntro = true;
     private int backgroundColour = 0x0353A4;
+    
+    float time, backup;
 
     public void setup() {
         currentLevel = LOADINGSCREEN;
@@ -93,10 +96,13 @@ public class BirdBrains extends PApplet {
     }
 
     public void draw() {
-        System.out.println(frameRate);
+        //System.out.println(frameRate);
         long currentTime = System.nanoTime();
         DELTA_TIME = ((double)currentTime - lastTime) /1000000000;
         lastTime = currentTime;
+        
+        time = time();
+        //System.out.println(time);
         
         textAlign(CENTER, CENTER);
         background(backgroundColour);
@@ -256,7 +262,13 @@ public class BirdBrains extends PApplet {
         levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.013f, width*.28f, height*.184f, 4, TRUMP));
         levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.22f, width*.28f, height*.184f, 5, TRUMP));
         levels.get(GAMESCREEN).addButton(new TweetButton(width*.71f, height*.427f, width*.28f, height*.184f, 6, TRUMP));
-
+        
+        if(isIntro) {
+            backup = time();
+            if(time - backup > 4)
+                System.out.println("Read");
+        }
+        
         levels.get(GAMESCREEN).getButton(4).addAction(new ButtonAction() {
             @Override
             public void action() {
@@ -471,5 +483,10 @@ public class BirdBrains extends PApplet {
     private void randTurn() {
         Random rand = new Random();
         currentTurn = rand.nextInt(2);
+    }
+    
+    private float time() {
+        time+=0.01;
+        return time;
     }
 }
