@@ -21,6 +21,10 @@ public class TweetButton extends Button{
         super(x, y, w, h, id);
         originalX = x;
         originalY = y;
+        if(candidate == BirdBrains.GAME.HILLARY) 
+            super.x = -(x+w)-100;
+        else 
+            super.x = BirdBrains.GAME.width+100;
         this.candidate = candidate;
         textSize = 10;
         tweet = BirdBrains.TWITS.getTweet(candidate);
@@ -67,7 +71,7 @@ public class TweetButton extends Button{
                 y += ySpeed;
             } else {
                 isMoving = false;
-                x = originalX;
+                x = -(originalX+w)-100;
                 y = originalY;
                 refreshTweet();
                 isSpawning = true;
@@ -78,7 +82,7 @@ public class TweetButton extends Button{
                 y += ySpeed;
             } else {
                 isMoving = false;
-                x = originalX;
+                x = BirdBrains.GAME.width+100;
                 y = originalY;
                 refreshTweet();
                 isSpawning = true;
@@ -87,9 +91,9 @@ public class TweetButton extends Button{
     }
     
     public void spawn() {
-        if(candidate == BirdBrains.GAME.HILLARY && x <= originalX+w+100) {
+        if(candidate == BirdBrains.GAME.HILLARY && x <= originalX) {
             x += 20;
-        } else if (candidate == BirdBrains.GAME.TRUMP && x >= originalX-w-100) {
+        } else if (candidate == BirdBrains.GAME.TRUMP && x >= originalX) {
             x -= 20;
         } else {
             isSpawning = false;
@@ -109,7 +113,6 @@ public class TweetButton extends Button{
                 BirdBrains.GAME.rect(x, y, w, h, 5);
                 BirdBrains.GAME.triangle(x + w*.92f, y + h, x + w - w*.14f, y + h, x + w - w*.11f, y + h + h*.08f);
             }
-            // flashing eggs BEWARE!
             BirdBrains.GAME.fill(color.x, color.y, color.z);
             BirdBrains.GAME.rect(x + w*.02f, y + h*.05f, w*.1f, h*.27f, 10);
             BirdBrains.GAME.image(egg, x + w*.02f , y + h*.05f, w*.1f, h*.27f);
