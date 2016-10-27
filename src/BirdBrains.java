@@ -60,6 +60,7 @@ public class BirdBrains extends PApplet {
     public static final int LOADINGSCREEN = 3;
     public static double DELTA_TIME = 0.0;
     public static PFont FONT;
+    public static FlavourTextFeeder FLAVOUR = new FlavourTextFeeder();
     
     private long lastTime = System.nanoTime();
 

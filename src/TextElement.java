@@ -27,4 +27,15 @@ public class TextElement {
         BirdBrains.GAME.text(text, x, y);
         BirdBrains.GAME.textAlign(BirdBrains.GAME.CENTER, BirdBrains.GAME.CENTER);
     }
+    
+    public void drawQuote() {
+        BirdBrains.GAME.textFont(BirdBrains.GAME.FONT);
+        BirdBrains.GAME.fill(255);
+        BirdBrains.GAME.textAlign(align);
+        BirdBrains.GAME.textSize(size);
+        float w = BirdBrains.GAME.width*.18f;
+        float h = BirdBrains.GAME.height*.1f;
+        BirdBrains.GAME.text(text, x-w/2, y, w, h);
+        BirdBrains.GAME.textAlign(BirdBrains.GAME.CENTER, BirdBrains.GAME.CENTER);
+    }
 }
