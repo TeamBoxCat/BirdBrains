@@ -13,15 +13,28 @@ public class Level {
     private LinkedList<Sprite> sprites = new LinkedList<Sprite>();
     public LinkedList<Button> buttons = new LinkedList<Button>();
 
+    LinkedList<String> soundEffect = new LinkedList<String>();
+    SoundController sec;
+
+    private float counter = 0;
+    private TextElement quote;
+    
     public Level(int id, String name) {
         this();
         this.id = id;
         this.name = name;
+        soundEffect.add("tweet.mp3");
+        sec = new SoundController(soundEffect.get(0));
     }
 
     public Level() {
+        quote = new TextElement(BirdBrains.GAME.width*.5f, BirdBrains.GAME.height*.51f, BirdBrains.GAME.width*.01f, "");
         title = BirdBrains.GAME.loadImage("BirdBrainsTitle.png");
         subTitle = BirdBrains.GAME.loadImage("BirdBrainsSubtitle.png");
+    }
+    
+    private String newQuote(){
+        return BirdBrains.FLAVOUR.getQuote(BirdBrains.GAME.currentTurn);
     }
 
     public void addButton(Button b) {
@@ -54,6 +67,19 @@ public class Level {
             BirdBrains.GAME.image(subTitle, BirdBrains.GAME.width * .5f - (subTitle.width*scale)/2, BirdBrains.GAME.height * .25f, (int)(subTitle.width*scale),(int)(subTitle.height*scale));
             
         }
+        else if(BirdBrains.GAME.currentLevel == BirdBrains.GAMESCREEN){
+            if(counter >=5){
+                quote.text = "";
+                counter = 0;
+            }
+            else if(!quote.text.equals(""))
+                counter += BirdBrains.DELTA_TIME;
+            if(Math.random() >= 0.9 && quote.text.equals(""))
+                quote.text = newQuote();
+            
+            quote.drawQuote();
+        }
+        
         for (TextElement te : textElements) {
             te.draw();
         }
@@ -86,6 +112,8 @@ public class Level {
         for (Button b : buttons) {
             if (!anyAnimating() || b.id == 0) {
                 if (b.over()) {
+                    if (b instanceof TweetButton)
+                    sec.playSoundEffect();
                     for (ButtonAction a : b.actions) {
                         a.action();
                     }

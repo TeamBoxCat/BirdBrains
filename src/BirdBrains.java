@@ -60,6 +60,7 @@ public class BirdBrains extends PApplet {
     public static final int LOADINGSCREEN = 3;
     public static double DELTA_TIME = 0.0;
     public static PFont FONT;
+    public static FlavourTextFeeder FLAVOUR = new FlavourTextFeeder();
     
     private long lastTime = System.nanoTime();
 
@@ -81,9 +82,8 @@ public class BirdBrains extends PApplet {
         minim = new Minim(this);
 
         sounds = new LinkedList<String>();
-        sounds.add("ssb.mp3");
-        sounds.add("money.mp3");
-        sounds.add("runtheworld.mp3");
+        sounds.add("HailToTheBeat.mp3");
+        sounds.add("Bullet-Riddled-Banner.mp3");
         sc = new SoundController(sounds.get(0));
 
         tempBack = genBack();
@@ -110,6 +110,11 @@ public class BirdBrains extends PApplet {
                 trump.draw();
                 hillary.draw();
                 handleTurn();
+                
+                if(!sc.sound.equals(sounds.get(1)))
+                {
+                    sc.playNext(sounds.get(1));
+                }
             }
 
             if (!sc.sound.equals(sounds.get(0)) && (currentLevel == 0 || currentLevel == 2)) {
