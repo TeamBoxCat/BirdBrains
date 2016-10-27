@@ -83,7 +83,7 @@ public class Level {
 
     public void mousePressed() {
         for (Button b : buttons) {
-            if (!anyAnimating()) {
+            if (!anyAnimating() || b.id == 0) {
                 if (b.over()) {
                     for (ButtonAction a : b.actions) {
                         a.action();

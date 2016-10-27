@@ -93,7 +93,7 @@ public class BirdBrains extends PApplet {
     }
 
     public void draw() {
-       // System.out.println(frameRate);
+        System.out.println(frameRate);
         long currentTime = System.nanoTime();
         DELTA_TIME = ((double)currentTime - lastTime) /1000000000;
         lastTime = currentTime;
@@ -101,6 +101,7 @@ public class BirdBrains extends PApplet {
         textAlign(CENTER, CENTER);
         background(backgroundColour);
         if (currentLevel != LOADINGSCREEN) {
+            preloader = null;
             levels.get(currentLevel).draw();
             if (currentLevel == 1) {
                 trump.draw();
