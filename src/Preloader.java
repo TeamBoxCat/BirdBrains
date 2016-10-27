@@ -18,7 +18,7 @@ public class Preloader {
         Random rand = new Random();
         
         loader = new TweetLoader();
-        background = BirdBrains.GAME.loadImage("load" + (rand.nextInt(6)+1) + ".jpg");
+        background = BirdBrains.GAME.loadImage("load" + (rand.nextInt(9)+1) + ".jpg");
         background.resize(BirdBrains.GAME.width, BirdBrains.GAME.height);
     }
 

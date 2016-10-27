@@ -14,7 +14,7 @@ public class TweetButton extends Button{
     private boolean isSpawning = true;
     private float originalX, originalY;
     private PImage egg = BirdBrains.GAME.loadImage("EggNude.png");
-    private PFont font = font = BirdBrains.GAME.createFont("Gotham Narrow Book.otf", 32);
+    private PFont font = font = BirdBrains.GAME.createFont("GothamNarrow-Book+SegoeUIEmoji.ttf", 32);
     private PVector color;
     
     public TweetButton(float x, float y, float w, float h, int id, int candidate) {
@@ -55,12 +55,13 @@ public class TweetButton extends Button{
     }
     
     public boolean getIsMoving(){return isMoving;}
+    public boolean getIsSpawning(){return isSpawning;}
     
     public void selectTweet() {
         float xSpeed = (BirdBrains.GAME.width/3 - x) / 10;
         float ySpeed = (BirdBrains.GAME.height/5 - y) / 10;
         
-        if(candidate == BirdBrains.GAME.TRUMP) {
+        if(candidate == BirdBrains.GAME.HILLARY) {
             if(x <= BirdBrains.GAME.width/3 - 1) {
                 x += xSpeed;
                 y += ySpeed;
@@ -86,9 +87,9 @@ public class TweetButton extends Button{
     }
     
     public void spawn() {
-        if(candidate == BirdBrains.GAME.TRUMP && x <= originalX+w+100) {
+        if(candidate == BirdBrains.GAME.HILLARY && x <= originalX+w+100) {
             x += 20;
-        } else if (candidate == BirdBrains.GAME.HILLARY && x >= originalX-w-100) {
+        } else if (candidate == BirdBrains.GAME.TRUMP && x >= originalX-w-100) {
             x -= 20;
         } else {
             isSpawning = false;
@@ -101,29 +102,29 @@ public class TweetButton extends Button{
             BirdBrains.GAME.fill(over() ? BirdBrains.GAME.color(220) : 255);
             BirdBrains.GAME.noStroke();
             
-            if(candidate == BirdBrains.GAME.TRUMP) {
+            if(candidate == BirdBrains.GAME.HILLARY) {
                 BirdBrains.GAME.rect(x, y, w, h, 5);
-                BirdBrains.GAME.triangle(x + 40, y + h, x + 70, y + h, x + 55, y + h + 15);
+                BirdBrains.GAME.triangle(x + w*.08f, y + h, x + w*.14f, y + h, x + w*.11f, y + h + h*.08f);
             } else {
                 BirdBrains.GAME.rect(x, y, w, h, 5);
-                BirdBrains.GAME.triangle(x + w - 40, y + h, x + w - 70, y + h, x + w - 55, y + h + 15);
+                BirdBrains.GAME.triangle(x + w*.92f, y + h, x + w - w*.14f, y + h, x + w - w*.11f, y + h + h*.08f);
             }
             // flashing eggs BEWARE!
             BirdBrains.GAME.fill(color.x, color.y, color.z);
-            BirdBrains.GAME.rect(x + 10, y + 10, 50, 50, 10);
-            BirdBrains.GAME.image(egg, x + 10 , y + 10, 50, 50);
+            BirdBrains.GAME.rect(x + w*.02f, y + h*.05f, w*.1f, h*.27f, 10);
+            BirdBrains.GAME.image(egg, x + w*.02f , y + h*.05f, w*.1f, h*.27f);
             
             BirdBrains.GAME.textFont(font);
             BirdBrains.GAME.textAlign(LEFT);
-            BirdBrains.GAME.textSize(30);
+            BirdBrains.GAME.textSize(w*.06f);
             BirdBrains.GAME.fill(41,47,51);
-            BirdBrains.GAME.text(tweet.getName(), x + 65, y + 15, w - 50, h - 50);
-            BirdBrains.GAME.textSize(18);
+            BirdBrains.GAME.text(tweet.getName(), x + w*.13f, y + h*.08f, w - w*.1f, h - h*.27f);
+            BirdBrains.GAME.textSize(w*.036f);
             BirdBrains.GAME.fill(0,102,153);
-            BirdBrains.GAME.text(tweet.getUserName(), x + 65, y + 40, w - 50, h - 50);
+            BirdBrains.GAME.text(tweet.getUserName(), x + w*.13f, y + h*.25f, w - w*.1f, h - h*.27f);
             BirdBrains.GAME.fill(0);
-            BirdBrains.GAME.textSize(21);
-            BirdBrains.GAME.text(tweet.getMessage(), x + 5, y + 65, w - 10, h - 60);
+            BirdBrains.GAME.textSize(w*.042f);
+            BirdBrains.GAME.text(tweet.getMessage(), x + w*.01f, y + h*.4f, w - w*.02f, h - h*.324f);
         }
         if(isMoving) {
             selectTweet();
