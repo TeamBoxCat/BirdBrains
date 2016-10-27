@@ -12,7 +12,9 @@ public class Level {
     private LinkedList<TextElement> textElements = new LinkedList<TextElement>();
     private LinkedList<Sprite> sprites = new LinkedList<Sprite>();
     public LinkedList<Button> buttons = new LinkedList<Button>();
-
+    private float counter = 0;
+    private TextElement quote;
+    
     public Level(int id, String name) {
         this();
         this.id = id;
@@ -20,8 +22,13 @@ public class Level {
     }
 
     public Level() {
+        quote = new TextElement(BirdBrains.GAME.width*.5f, BirdBrains.GAME.height*.51f, BirdBrains.GAME.width*.01f, "");
         title = BirdBrains.GAME.loadImage("BirdBrainsTitle.png");
         subTitle = BirdBrains.GAME.loadImage("BirdBrainsSubtitle.png");
+    }
+    
+    private String newQuote(){
+        return BirdBrains.FLAVOUR.getQuote(BirdBrains.GAME.currentTurn);
     }
 
     public void addButton(Button b) {
@@ -54,6 +61,19 @@ public class Level {
             BirdBrains.GAME.image(subTitle, BirdBrains.GAME.width * .5f - (subTitle.width*scale)/2, BirdBrains.GAME.height * .25f, (int)(subTitle.width*scale),(int)(subTitle.height*scale));
             
         }
+        else if(BirdBrains.GAME.currentLevel == BirdBrains.GAMESCREEN){
+            if(counter >=5){
+                quote.text = "";
+                counter = 0;
+            }
+            else if(!quote.text.equals(""))
+                counter += BirdBrains.DELTA_TIME;
+            if(Math.random() >= 0.9 && quote.text.equals(""))
+                quote.text = newQuote();
+            
+            quote.drawQuote();
+        }
+        
         for (TextElement te : textElements) {
             te.draw();
         }

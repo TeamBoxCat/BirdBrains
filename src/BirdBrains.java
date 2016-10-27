@@ -60,6 +60,7 @@ public class BirdBrains extends PApplet {
     public static final int LOADINGSCREEN = 3;
     public static double DELTA_TIME = 0.0;
     public static PFont FONT;
+    public static FlavourTextFeeder FLAVOUR = new FlavourTextFeeder();
     
     private long lastTime = System.nanoTime();
 
@@ -395,7 +396,7 @@ public class BirdBrains extends PApplet {
 
     public void initChars() {
         hillary = new Character(HILLARY, width * 0.26f + 12, height * 0.55f, true);
-        trump = new Character(TRUMP, width * 0.74f - 212, height * 0.55f, true);
+        trump = new Character(TRUMP, width * 0.74f - 224, height * 0.55f, true);
         trump.addSprite(new Sprite("./data/trump.png", 500, 500));
         hillary.addSprite(new Sprite("./data/hillary.png", 500, 500));
         trump.addProp(new Sprite("./data/podeum.png", 500, 500));

@@ -9,9 +9,12 @@ public class FlavourTextFeeder {
     private ArrayList<String> trumpList = new ArrayList<>();
     private ArrayList<String> hillaryList = new ArrayList<>();
 
-    public FlavourTextFeeder() throws Exception{
-        loadNames("src/data/TrumpQuotes.txt", trumpList);
-        loadNames("src/data/HillaryQuotes.txt", trumpList);
+    public FlavourTextFeeder(){
+        try{
+            loadNames("src/data/TrumpQuotes.txt", trumpList);
+            loadNames("src/data/HillaryQuotes.txt", hillaryList);
+        }
+        catch(Exception e){System.out.println("wasnt bothered");}
     }
 
     private void loadNames(String fileName, ArrayList<String> arrayList) throws IOException {
