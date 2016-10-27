@@ -23,7 +23,8 @@ public class Preloader {
     }
 
     public void draw() {
-        BirdBrains.GAME.background(background);
+        //BirdBrains.GAME.background(background);
+        BirdBrains.GAME.image(background, 0, 0, BirdBrains.GAME.width,BirdBrains.GAME.height);
         if (!isLoading && needLoad) {
             new Thread(loader).start();
             isLoading = true;
