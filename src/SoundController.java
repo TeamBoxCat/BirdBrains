@@ -13,14 +13,14 @@ class SoundController {
     }
 
     public void play() {
-        audioPlayer = BirdBrains.GAME.minim.loadFile(sound);
+        audioPlayer = BirdBrains.GAME.minim.loadFile(sound, 4096);
         audioPlayer.setGain(gain);
         audioPlayer.loop();
         isPlaying = true;
     }
     
     public void playSoundEffect() {
-        audioPlayer = BirdBrains.GAME.minim.loadFile(sound);
+        audioPlayer = BirdBrains.GAME.minim.loadFile(sound, 4096);
         audioPlayer.setGain(gain);
         audioPlayer.play();
         isPlaying = true;
@@ -29,6 +29,9 @@ class SoundController {
     public void update() {
         if (!isPlaying) {
             play();
+        }
+        if(!audioPlayer.isPlaying()){
+            audioPlayer.close();
         }
     }
 
