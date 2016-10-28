@@ -342,18 +342,15 @@ public class BirdBrains extends PApplet {
         );
 
         levels.get(CREDITS).setBackground(tempBack);
-        levels.get(CREDITS).addText(new TextElement(width * .5f, height * .15f, 50, "Credits"));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .25f, 30, "Almost Everything - Mohamad Kalache", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .30f, 30, "Sprites - Universal LPC Sprite Sheet Character Generator", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .35f, 20, "-https://goo.gl/qTVZYn", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .40f, 30, "Sound Library - Minim", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .45f, 20, "-http://code.compartmental.net/tools/minim", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .50f, 30, "Theme - Star Spangled Banner", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .55f, 20, "-US Army Band", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .60f, 30, "Trump Theme - The O'Jays, For the Love of Money", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .65f, 20, "-Sony Music", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .70f, 30, "Hillary Theme - Beyonc\u00e9, Run the World(Girls)", LEFT));
-        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .75f, 20, "-Sony Music", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .5f, height * .15f, 60, "Credits"));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .25f, 50, "Developed by:", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .45f, 40, "12589418 - Mohamad Kalache", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .35f, 40, "12615047 - Chih-Chieh Chang", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .40f, 40, "12606923 - Quoc Huy Nguyen", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .50f, 40, "12582589 - Jonathan Moallem", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .55f, 40, "12569582 - Walter Chan", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .65f, 40, "Remember, there's no such thing as an unrealistic goal...", LEFT));
+        levels.get(CREDITS).addText(new TextElement(width * .2f, height * .70f, 40, "just unrealistic time frames. - Donald Trump", LEFT));
         levels.get(CREDITS).addButton(mainButton);
     }
 
