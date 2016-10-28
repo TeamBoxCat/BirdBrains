@@ -250,6 +250,7 @@ public class BirdBrains extends PApplet {
         mainButton.addAction(new ButtonAction() {
             @Override
             public void action() {
+                noTint();
                 setLevel(MENU);
             }
         }
@@ -341,7 +342,7 @@ public class BirdBrains extends PApplet {
         }
         );
 
-        levels.get(CREDITS).setBackground(tempBack);
+        levels.get(CREDITS).setBackground(genBack(backgroundColour));
         levels.get(CREDITS).addText(new TextElement(width * .5f, height * .15f, 60, "Credits"));
         levels.get(CREDITS).addText(new TextElement(width * .2f, height * .25f, 50, "Developed by:", LEFT));
         levels.get(CREDITS).addText(new TextElement(width * .2f, height * .45f, 40, "12589418 - Mohamad Kalache", LEFT));
