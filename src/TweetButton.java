@@ -104,7 +104,7 @@ public class TweetButton extends Button{
     public void draw() {
         if(active) {
             BirdBrains.GAME.fill(over() ? BirdBrains.GAME.color(220) : 255);
-            BirdBrains.GAME.stroke(255);
+            BirdBrains.GAME.stroke(over() ? 220 : 255);
             
             if(candidate == BirdBrains.GAME.HILLARY) {
                 BirdBrains.GAME.rect(x, y, w, h, 5);
@@ -135,6 +135,7 @@ public class TweetButton extends Button{
             if(isSpawning) {
                 spawn();
             }
+            BirdBrains.GAME.noStroke();
         }
     }
 }
