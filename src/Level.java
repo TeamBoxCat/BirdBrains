@@ -25,6 +25,7 @@ public class Level {
     private float counter = 0;
     private TextElement quote;
     private int quoteColour;
+    private int lastCandi = -1;
     
     private PImage spotlight = BirdBrains.GAME.loadImage("stagelights_spotlights_flashlights_allofthelights.png");
     private boolean isIntro;
@@ -82,16 +83,17 @@ public class Level {
             BirdBrains.GAME.image(subTitle, BirdBrains.GAME.width * .5f - (subTitle.width*scale)/2, BirdBrains.GAME.height * .25f, (int)(subTitle.width*scale),(int)(subTitle.height*scale));
             
         }
-        else if(BirdBrains.GAME.currentLevel == BirdBrains.GAMESCREEN){
+        else if(BirdBrains.GAME.currentLevel == BirdBrains.GAMESCREEN && !isIntro){
             if(counter >=10){
                 quote.text = "";
                 counter = 0;
             }
             else if(!quote.text.equals(""))
                 counter += BirdBrains.DELTA_TIME;
-            if(Math.random() >= 0.9 && quote.text.equals("")) {
+            if(Math.random() >= 0.9 && quote.text.equals("") && BirdBrains.GAME.currentTurn != lastCandi) {
                 quote.text = newQuote();
                 quoteColour = BirdBrains.GAME.currentTurn;
+                lastCandi = BirdBrains.GAME.currentTurn;
             }
             
             quote.drawQuote(quoteColour);
