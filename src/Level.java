@@ -15,6 +15,12 @@ public class Level {
 
     LinkedList<String> soundEffect = new LinkedList<String>();
     SoundController sec;
+    SoundController light;
+    SoundController clap;
+
+    private boolean played1 = false;
+    private boolean played2 = false;
+    private boolean played3 = false;
 
     private float counter = 0;
     private TextElement quote;
@@ -29,7 +35,11 @@ public class Level {
         this.id = id;
         this.name = name;
         soundEffect.add("tweet.mp3");
+        soundEffect.add("lighting.mp3");
+        soundEffect.add("applause.mp3");
         sec = new SoundController(soundEffect.get(0));
+        light = new SoundController(soundEffect.get(1));
+        clap = new SoundController(soundEffect.get(2));
     }
 
     public Level() {
@@ -99,17 +109,29 @@ public class Level {
             timer += BirdBrains.DELTA_TIME;
             for(int i = 1; i <= 6; i++)
                 setBtnActive(i, false);
-            if(timer >= 2) {
-                BirdBrains.GAME.noTint();
-                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.26f + 12, BirdBrains.GAME.height * 0.1f, 200, 750);
-                BirdBrains.GAME.tint(120);
-            }
             if(timer >= 3) {
+                if (played1 == false) {
+                    light.playSoundEffect();
+                    played1 = true;
+                }
                 BirdBrains.GAME.noTint();
-                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.74f - 224, BirdBrains.GAME.height * 0.1f, 200, 750);
+                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.26f + 12, BirdBrains.GAME.height * 0.1f, 200, 590);
                 BirdBrains.GAME.tint(120);
             }
-            if(timer >= 4) {
+            if(timer >= 5) {
+                if (played2 == false) {
+                    light.playSoundEffect();
+                    played2 = true;
+                }
+                BirdBrains.GAME.noTint();
+                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.74f - 224, BirdBrains.GAME.height * 0.1f, 200, 590);
+                BirdBrains.GAME.tint(120);
+            }
+            if(timer >= 7) {
+                if (played3 == false) {
+                    clap.playSoundEffect();
+                    played3 = true;
+                }
                 BirdBrains.GAME.noTint();
                 for(int i = 1; i <= 6; i++) {
                     setBtnActive(i, true);
