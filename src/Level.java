@@ -116,7 +116,7 @@ public class Level {
                     played1 = true;
                 }
                 BirdBrains.GAME.noTint();
-                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.26f + 12, BirdBrains.GAME.height * 0.22f, 200, BirdBrains.GAME.height * 0.60f);
+                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.26f + 12, BirdBrains.GAME.height * 0.22f, 200, BirdBrains.GAME.height * 0.59f);
                 BirdBrains.GAME.tint(120);
             }
             if(timer >= 5) {
@@ -125,7 +125,7 @@ public class Level {
                     played2 = true;
                 }
                 BirdBrains.GAME.noTint();
-                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.74f - 224, BirdBrains.GAME.height * 0.22f, 200, BirdBrains.GAME.height * 0.60f);
+                BirdBrains.GAME.image(spotlight, BirdBrains.GAME.width * 0.74f - 224, BirdBrains.GAME.height * 0.22f, 200, BirdBrains.GAME.height * 0.59f);
                 BirdBrains.GAME.tint(120);
             }
             if(timer >= 7) {
