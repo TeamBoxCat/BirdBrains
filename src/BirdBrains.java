@@ -398,8 +398,8 @@ public class BirdBrains extends PApplet {
     }
 
     public void initChars() {
-        hillary = new Character(HILLARY, width * 0.26f + 12, height * 0.55f, true);
-        trump = new Character(TRUMP, width * 0.74f - 224, height * 0.55f, true);
+        hillary = new Character(HILLARY, width * 0.26f + 12, height * 0.57f, true);
+        trump = new Character(TRUMP, width * 0.74f - 224, height * 0.57f, true);
         trump.addSprite(new Sprite("./data/trump.png", 500, 500));
         hillary.addSprite(new Sprite("./data/hillary.png", 500, 500));
         trump.addProp(new Sprite("./data/podeum.png", 500, 500));
@@ -432,8 +432,8 @@ public class BirdBrains extends PApplet {
     }
 
     public void settings() {
-        //size(1600, 900, FX2D);
-        fullScreen(FX2D);
+        size(1600, 900, FX2D);
+        //fullScreen(FX2D);
     }
 
     static public void main(String[] passedArgs) {
