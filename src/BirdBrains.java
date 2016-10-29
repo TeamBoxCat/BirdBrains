@@ -61,6 +61,7 @@ public class BirdBrains extends PApplet {
     public static double DELTA_TIME = 0.0;
     public static PFont FONT;
     public static FlavourTextFeeder FLAVOUR = new FlavourTextFeeder();
+    public static SoundController SEC;
     
     private long lastTime = System.nanoTime();
 
@@ -93,7 +94,7 @@ public class BirdBrains extends PApplet {
     }
 
     public void draw() {
-        System.out.println(frameRate);
+        //System.out.println(frameRate);
         long currentTime = System.nanoTime();
         DELTA_TIME = ((double)currentTime - lastTime) /1000000000;
         lastTime = currentTime;
@@ -318,6 +319,7 @@ public class BirdBrains extends PApplet {
             b.addAction(new ButtonAction() {
                 @Override
                 public void action() {
+                    BirdBrains.SEC.playSoundEffect();
                     b.setIsMoving(true);
                 }
             }

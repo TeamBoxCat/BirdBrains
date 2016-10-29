@@ -14,7 +14,6 @@ public class Level {
     public LinkedList<Button> buttons = new LinkedList<Button>();
 
     LinkedList<String> soundEffect = new LinkedList<String>();
-    SoundController sec;
     SoundController light;
     SoundController clap;
 
@@ -38,7 +37,7 @@ public class Level {
         soundEffect.add("tweet.mp3");
         soundEffect.add("lighting.mp3");
         soundEffect.add("applause.mp3");
-        sec = new SoundController(soundEffect.get(0));
+        BirdBrains.SEC = new SoundController(soundEffect.get(0));
         light = new SoundController(soundEffect.get(1));
         clap = new SoundController(soundEffect.get(2));
     }
@@ -172,8 +171,6 @@ public class Level {
         for (Button b : buttons) {
             if (!anyAnimating() || b.id == 0) {
                 if (b.over()) {
-                    if (b instanceof TweetButton)
-                    sec.playSoundEffect();
                     for (ButtonAction a : b.actions) {
                         a.action();
                     }
