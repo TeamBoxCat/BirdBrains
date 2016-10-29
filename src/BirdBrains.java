@@ -432,7 +432,7 @@ public class BirdBrains extends PApplet {
     }
 
     public void settings() {
-        //size(1600, 900, FX2D);
+        //size(1000, 600, FX2D);
         fullScreen(FX2D);
     }
 
