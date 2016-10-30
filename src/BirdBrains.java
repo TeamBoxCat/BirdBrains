@@ -74,7 +74,7 @@ public class BirdBrains extends PApplet {
     private int backgroundColour = 0x0353A4;
 
     public void setup() {
-        PImage icon = loadImage("./data/icon.png");
+        PImage icon = loadImage("./data/BirdBrainsTitle.png");
         surface.setIcon(icon);
         currentLevel = LOADINGSCREEN;
         GAME = this;
