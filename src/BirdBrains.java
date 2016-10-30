@@ -74,6 +74,8 @@ public class BirdBrains extends PApplet {
     private int backgroundColour = 0x0353A4;
 
     public void setup() {
+        PImage icon = loadImage("./data/icon.png");
+        surface.setIcon(icon);
         currentLevel = LOADINGSCREEN;
         GAME = this;
         FONT = createFont("./data/Capital Daren Regular.ttf", 20);

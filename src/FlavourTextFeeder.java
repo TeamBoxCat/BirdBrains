@@ -11,8 +11,8 @@ public class FlavourTextFeeder {
 
     public FlavourTextFeeder(){
         try{
-            loadNames("src/data/TrumpQuotes.txt", trumpList);
-            loadNames("src/data/HillaryQuotes.txt", hillaryList);
+            loadNames("./data/TrumpQuotes.txt", trumpList);
+            loadNames("./data/HillaryQuotes.txt", hillaryList);
         }
         catch(Exception e){System.out.println("wasnt bothered");}
     }

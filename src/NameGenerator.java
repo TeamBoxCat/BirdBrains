@@ -11,8 +11,8 @@ public class NameGenerator {
     private ArrayList<String> prefixList = new ArrayList<>();
 
     public NameGenerator() throws Exception{
-        loadNames("src/data/suffixes.txt", suffixList);
-        loadNames("src/data/prefixes.txt", prefixList);
+        loadNames("./data/suffixes.txt", suffixList);
+        loadNames("./data/prefixes.txt", prefixList);
     }
 
     private void loadNames(String fileName, ArrayList<String> arrayList) throws IOException {
